@@ -4,7 +4,7 @@
 # In this section, we show how we performed our parameter sensitivity study
 # given in the supplementary material of the paper. For this study, 
 # we use the problem for [Case Study 3 in the case that the continuum limit 
-# is accurate](../../case_studies/cs3a.html). We set up this problem 
+# is inaccurate](../../case_studies/cs3b.html). We set up this problem 
 # below.
 using StepwiseEQL
 using CairoMakie
@@ -14,13 +14,13 @@ using Random
 using Setfield
 using ReferenceTests #src
 fig_path = joinpath(@__DIR__, "figures") #src
-final_time = 50.0
+final_time = 75.0
 domain_length = 30.0
 midpoint = domain_length / 2
 initial_condition = [LinRange(0, 5, 30); LinRange(25, 30, 30)] |> unique!
 damping_constant = 1.0
 resting_spring_length = 0.2
-spring_constant = 50.0
+spring_constant = 1 / 5
 k = spring_constant
 force_law_parameters = (s=resting_spring_length, k=spring_constant)
 force_law = (δ, p) -> p.k * (p.s - δ)
@@ -40,7 +40,7 @@ prob = CellProblem(;
     proliferation_law_parameters=Gp)
 
 # The following function will be used for solving `ens_prob`.
-function solve_problem(prob; saveat=0.1, trajectories=1000, final_time=50.0)
+function solve_problem(prob; saveat=0.1, trajectories=1000, final_time=75.0)
     prob = @set prob.final_time = final_time
     ens_prob = EnsembleProblem(prob)
     return solve(ens_prob, Tsit5(), EnsembleThreads(); saveat, trajectories) # multithreading ⟹ not deterministic
@@ -51,7 +51,7 @@ nothing #hide
 # the learned vectors.
 const diffusion_basis = PolynomialBasis(-1, -3)
 const reaction_basis = PolynomialBasis(1, 5)
-function solve_eql_problem(esol::EnsembleSolution; num_knots=50, τq=0.1)
+function solve_eql_problem(esol::EnsembleSolution; num_knots=200, τq=0.25)
     eql_sol = stepwise_selection(esol; diffusion_basis, reaction_basis,
         threshold_tol=(q=τq,), num_knots=num_knots, initial=:none, show_progress=true, max_steps=10)
     return eql_sol, eql_sol.loss_history[end], eql_sol.diffusion_theta, eql_sol.reaction_theta
@@ -66,14 +66,14 @@ nothing #hide
 # The following ranges are what we use.
 base_saveat = 0.1
 base_trajectories = 1000
-base_num_knots = 50
-base_τq = 0.1
-base_final_time = 50.0
+base_num_knots = 200
+base_τq = 0.25
+base_final_time = 75.0
 n = 25
 saveat = LinRange(0.1, 1.0, n)
 trajectories = round.(Int, LinRange(10, 1000, n))
 final_time = LinRange(1.0, 100.0, n)
-num_knots = round.(Int, LinRange(10, 20, n))
+num_knots = round.(Int, LinRange(10, 250, n))
 τq = LinRange(0, 0.49, n)
 
 # Now we define the function that performs the study. 
@@ -165,7 +165,7 @@ Legend(fig[2, 3],
     [MarkerElement(color=:red, marker='.', markersize=122),
         MarkerElement(color=:black, marker='.', markersize=122)],
     [L"D(q) \neq 0", L"D(q) = 0"],
-    halign = :left, valign=:top)
+    halign=:left, valign=:top)
 resize_to_layout!(fig)
 fig
 save(joinpath(fig_path, "sfigure_sensitivity.pdf"), fig) #src
