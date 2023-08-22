@@ -119,7 +119,7 @@ lines!(ax2, pde_sol.t, pde_L, color=:red, linestyle=:dash, linewidth=8, label=L&
 axislegend(position=:rb)
 resize_to_layout!(fig)
 fig</code></pre><figure>
-    <img src='../figures/sfigure_linear_diffusion.png', alt='Figure S5 from the paper'><br>
+    <img src='../../figures/sfigure_linear_diffusion.png', alt='Figure S5 from the paper'><br>
 </figure><p>Let us now apply our equation learning procedure to this problem.</p><pre><code class="language-julia hljs">diffusion_basis = PolynomialBasis(-2, 2)
 rhs_basis = PolynomialBasis(1, 5)
 moving_boundary_basis = PolynomialBasis(-2, 2)
@@ -247,7 +247,7 @@ eql_sol = stepwise_selection(sol;
 end
 fig = plot_results(eql_sol, sol, k, s, η, diffusion_basis, rhs_basis, moving_boundary_basis)
 fig</code></pre><figure>
-    <img src='../figures/sfigure_linear_diffusion_2.png', alt='Figure S6 from the paper'><br>
+    <img src='../../figures/sfigure_linear_diffusion_2.png', alt='Figure S6 from the paper'><br>
 </figure><h2 id="Just-the-code"><a class="docs-heading-anchor" href="#Just-the-code">Just the code</a><a id="Just-the-code-1"></a><a class="docs-heading-anchor-permalink" href="#Just-the-code" title="Permalink"></a></h2><p>An uncommented version of this example is given below. You can view the source code for this file <a href="https://github.com/DanielVandH/StepwiseEQL.jl/tree/main/docs/src/literate_supplementary_material/linear_diffusion.jl">here</a>.</p><pre><code class="language-julia hljs">using StepwiseEQL
 using CairoMakie
 using EpithelialDynamics1D
@@ -458,4 +458,4 @@ function plot_results(eql_sol, sol, k, s, η, diffusion_basis, rhs_basis, moving
     fig
 end
 fig = plot_results(eql_sol, sol, k, s, η, diffusion_basis, rhs_basis, moving_boundary_basis)
-fig</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../piecewise_prof/">« A Piecewise Proliferation Law</a><a class="docs-footer-nextpage" href="../parameter_sensitivity/">Parameter Sensitivity Study »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Tuesday 22 August 2023 02:39">Tuesday 22 August 2023</span>. Using Julia version 1.9.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+fig</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../piecewise_prof/">« A Piecewise Proliferation Law</a><a class="docs-footer-nextpage" href="../parameter_sensitivity/">Parameter Sensitivity Study »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Tuesday 22 August 2023 03:06">Tuesday 22 August 2023</span>. Using Julia version 1.9.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
