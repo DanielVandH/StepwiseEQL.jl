@@ -1,0 +1,7 @@
+*.jl.*.cov
+*.jl.cov
+*.jl.mem
+/docs/build/
+/.vscode
+docs/old_liveserver.jl
+docs/old_make.jl
