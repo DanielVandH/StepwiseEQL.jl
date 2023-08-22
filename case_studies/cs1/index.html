@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Case Study 1 · StepwiseEQL.jl</title><script data-outdated-warner src="../../assets/warner.js"></script><link rel="canonical" href="https://DanielVandH.github.io/StepwiseEQL.jl/case_studies/cs1/"/><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">StepwiseEQL.jl</a></span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><a class="tocitem" href="../../installation/">Installation</a></li><li><a class="tocitem" href="../../repository_structure/">Repository Structure</a></li><li><a class="tocitem" href="../../algorithm/">The Algorithm</a></li><li><input class="collapse-toggle" id="menuitem-5" type="checkbox" checked/><label class="tocitem" for="menuitem-5"><span class="docs-label">Paper Results</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../overview/">Overview</a></li><li><a class="tocitem" href="../figure_2/">Reproducing Figure 2</a></li><li><a class="tocitem" href="../figure_3/">Reproducing Figure 3</a></li><li class="is-active"><a class="tocitem" href>Case Study 1</a><ul class="internal"><li><a class="tocitem" href="#Simulating"><span>Simulating</span></a></li><li><a class="tocitem" href="#Equation-learning"><span>Equation learning</span></a></li><li><a class="tocitem" href="#Plotting"><span>Plotting</span></a></li><li><a class="tocitem" href="#Just-the-code"><span>Just the code</span></a></li></ul></li><li><a class="tocitem" href="../cs2/">Case Study 2</a></li><li><input class="collapse-toggle" id="menuitem-5-6" type="checkbox"/><label class="tocitem" for="menuitem-5-6"><span class="docs-label">Case Study 3</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../cs3a/">Accurate continuum limit</a></li><li><a class="tocitem" href="../cs3b/">Inaccurate continuum limit</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-7" type="checkbox"/><label class="tocitem" for="menuitem-5-7"><span class="docs-label">Case Study 4</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../cs4a/">Accurate continuum limit</a></li><li><a class="tocitem" href="../cs4b/">Inaccurate continuum limit</a></li></ul></li><li><a class="tocitem" href="../../supplementary_material/new_density/">Discrete Densities at the Boundaries</a></li><li><a class="tocitem" href="../../supplementary_material/piecewise_prof/">A Piecewise Proliferation Law</a></li><li><a class="tocitem" href="../../supplementary_material/linear_diffusion/">Linear Diffusion</a></li><li><a class="tocitem" href="../../supplementary_material/parameter_sensitivity/">Parameter Sensitivity Study</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Paper Results</a></li><li class="is-active"><a href>Case Study 1</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Case Study 1</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/DanielVandH/StepwiseEQL.jl/tree/main/docs/src/literate_case_studies/cs1.jl" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><div class="admonition is-success"><header class="admonition-header">Tip</header><div class="admonition-body"><p>This example is also available as a Jupyter notebook: <a href="https://github.com/DanielVandH/StepwiseEQL.jl/tree/main/docs/src/case_studies/notebooks/cs1.ipynb"><code>cs1.ipynb</code></a></p></div></div><h1 id="Case-Studies:-Case-Study-1"><a class="docs-heading-anchor" href="#Case-Studies:-Case-Study-1">Case Studies: Case Study 1</a><a id="Case-Studies:-Case-Study-1-1"></a><a class="docs-heading-anchor-permalink" href="#Case-Studies:-Case-Study-1" title="Permalink"></a></h1><p>This example shows how we obtained the results in the paper for the first case study. To start, let us load in the packages we will need.</p><pre><code class="language-julia hljs">using StepwiseEQL
+using CairoMakie
+using EpithelialDynamics1D
+using OrdinaryDiffEq</code></pre><h2 id="Simulating"><a class="docs-heading-anchor" href="#Simulating">Simulating</a><a id="Simulating-1"></a><a class="docs-heading-anchor-permalink" href="#Simulating" title="Permalink"></a></h2><p>The first step in our procedure is to obtain the results from the cell simulation. This is done as follows. We use the force law <span>$F(\ell) = k(s - \ell)$</span>.</p><pre><code class="language-julia hljs">force_law = (δ, p) -&gt; p.k * (p.s - δ)
+force_law_parameters = (k=50.0, s=0.2)
+final_time = 5.0
+damping_constant = 1.0
+initial_condition = [LinRange(0, 5, 30); LinRange(25, 30, 30)] |&gt; unique!
+prob = CellProblem(;
+    force_law,
+    force_law_parameters,
+    final_time,
+    damping_constant,
+    initial_condition)
+sol = solve(prob, Tsit5(), saveat=LinRange(0, final_time, 50))</code></pre><pre><code class="nohighlight hljs">retcode: Success
+Interpolation: 1st order linear
+t: 50-element Vector{Float64}:
+ 0.0
+ 0.1020408163265306
+ 0.2040816326530612
+ 0.30612244897959184
+ 0.4081632653061224
+ ⋮
+ 4.6938775510204085
+ 4.795918367346939
+ 4.8979591836734695
+ 5.0
+u: 50-element Vector{Vector{Float64}}:
+ [0.0, 0.1724137931034483, 0.3448275862068966, 0.5172413793103449, 0.6896551724137931, 0.8620689655172414, 1.0344827586206897, 1.206896551724138, 1.3793103448275863, 1.5517241379310345  …  28.448275862068964, 28.620689655172413, 28.79310344827586, 28.965517241379313, 29.137931034482758, 29.310344827586206, 29.482758620689655, 29.655172413793103, 29.827586206896555, 30.0]
+ [0.0, 0.17241379310349564, 0.3448275862072093, 0.5172413793123272, 0.6896551724254885, 0.862068965583525, 1.0344827589757786, 1.2068965535463891, 1.379310353708087, 1.5517241793563723  …  28.448275820643673, 28.620689646291883, 28.793103446453646, 28.96551724102418, 29.137931034416518, 29.31034482757447, 29.4827586206877, 29.655172413792776, 29.827586206896513, 30.0]
+ [0.0, 0.1724138117467249, 0.3448276572464026, 0.5172415843189141, 0.6896558354604316, 0.8620707934381211, 1.0344882309935757, 1.2069109680032413, 1.379350391424813, 1.5518243068723196  …  28.44817569312707, 28.62064960857575, 28.793089031996246, 28.965511769006884, 29.137929206561484, 29.31034416453989, 29.48275841568083, 29.655172342753765, 29.827586188253186, 30.0]
+ [0.0, 0.1724180723087107, 0.3448393892353834, 0.5172691410859218, 0.6897179116629475, 0.8622065671105769, 1.0347778052706758, 1.2075127763561453, 1.3805674430039012, 1.554222253567815  …  28.445777746432174, 28.619432556996106, 28.792487223643853, 28.965222194729332, 29.137793432889413, 29.310282088337058, 29.482730858914078, 29.65516061076462, 29.827581927691288, 30.0]
+ [0.0, 0.17250037129897575, 0.34502183801768355, 0.5176649951705653, 0.6904162692664148, 0.8635599798065833, 1.0370852193558056, 1.2116982876663236, 1.3874720675876706, 1.5660206102285164  …  28.4339793897718, 28.612527932412014, 28.788301712333965, 28.96291478064394, 29.13644002019364, 29.309583730733404, 29.482335004829572, 29.65497816198222, 29.827499628701077, 30.0]
+ ⋮
+ [0.0, 0.4614393800663206, 0.9236739347032462, 1.386439368972283, 1.851563420601704, 2.3177075992535756, 2.7876942156439184, 3.2591089912813254, 3.735720931301201, 4.214052274597669  …  25.78594772540233, 26.264279068698805, 26.740891008718663, 27.212305784356094, 27.682292400746412, 28.148436579398304, 28.613560631027713, 29.07632606529675, 29.538560619933687, 30.0]
+ [0.0, 0.46426752760006446, 0.9285313930002487, 1.3948029724410733, 1.86104668264444, 2.331249447002487, 2.8013504305271613, 3.2772511919669443, 3.7528965222099173, 4.236021671466421  …  25.763978328533593, 26.247103477790063, 26.72274880803307, 27.19864956947283, 27.66875055299752, 28.13895331735556, 28.60519702755893, 29.07146860699975, 29.535732472399932, 30.0]
+ [0.0, 0.4667997920222022, 0.933391698910398, 1.4022871779794028, 1.8705453674745856, 2.3433528371963184, 2.815053577475178, 3.2934356472551616, 3.7701776720962408, 4.255567677743931  …  25.744432322256078, 26.229822327903747, 26.70656435274485, 27.184946422524817, 27.656647162803683, 28.129454632525412, 28.5977128220206, 29.066608301089605, 29.5332002079778, 30.0]
+ [0.0, 0.46888429127863634, 0.938590802821992, 1.4084378023194548, 1.8807270563962621, 2.3532656659043787, 2.8297942955536013, 3.306619606648261, 3.7888653821560094, 4.271367024660429  …  25.728632975339583, 26.211134617843985, 26.69338039335174, 27.170205704446403, 27.64673433409563, 28.119272943603733, 28.591562197680545, 29.061409197178005, 29.53111570872137, 30.0]</code></pre><h2 id="Equation-learning"><a class="docs-heading-anchor" href="#Equation-learning">Equation learning</a><a id="Equation-learning-1"></a><a class="docs-heading-anchor-permalink" href="#Equation-learning" title="Permalink"></a></h2><p>To now define the equation learning problem, we note that all we need to learn is <span>$D(q)$</span>. The basis expansion we use is</p><p class="math-container">\[D(q) = \dfrac{\theta_1^d}{q} + \dfrac{\theta_2^d}{q^2} + \dfrac{\theta_3^d}{q^3},\]</p><p>which we can define as follows:</p><pre><code class="language-julia hljs">diffusion_basis = BasisSet(
+    (q, k) -&gt; inv(q),
+    (q, k) -&gt; inv(q^2),
+    (q, k) -&gt; inv(q^3),
+)</code></pre><pre><code class="nohighlight hljs">(::BasisSet{Tuple{Main.var&quot;##19533&quot;.var&quot;#3#6&quot;, Main.var&quot;##19533&quot;.var&quot;#4#7&quot;, Main.var&quot;##19533&quot;.var&quot;#5#8&quot;}}) (generic function with 3 methods)</code></pre><p>This could have also been defined using</p><pre><code class="language-julia hljs">diffusion_basis = PolynomialBasis(-1, -3)</code></pre><pre><code class="nohighlight hljs">(::BasisSet{Tuple{StepwiseEQL.var&quot;#52#54&quot;{Int64}, StepwiseEQL.var&quot;#52#54&quot;{Int64}, StepwiseEQL.var&quot;#52#54&quot;{Int64}}}) (generic function with 3 methods)</code></pre><p>which is simpler. Next, let us obtain the results. The call to <code>stepwise_selection</code> is simple in this case. To start, we use no pruning:</p><pre><code class="language-julia hljs">eql_sol = stepwise_selection(sol; diffusion_basis)</code></pre><pre><code class="nohighlight hljs">StepwiseEQL Solution.
+    D(q) = θ₂ᵈ ϕ₂ᵈ(q)
+┌──────┬──────────────────────┬───────┐
+│ Step │   θ₁ᵈ    θ₂ᵈ     θ₃ᵈ │  Loss │
+├──────┼──────────────────────┼───────┤
+│    1 │ -5.97  70.73  -27.06 │   Inf │
+│    2 │ -1.46  47.11    0.00 │ -4.33 │
+│    3 │  0.00  43.52    0.00 │ -5.18 │
+└──────┴──────────────────────┴───────┘</code></pre><p>The coefficient for <span>$\theta_2^d$</span> is not perfect. If we instead use some pruning on <span>$q$</span>, we can obtain an improved result:</p><pre><code class="language-julia hljs">eql_sol2 = stepwise_selection(sol; diffusion_basis, threshold_tol=(q=0.1,))</code></pre><pre><code class="nohighlight hljs">StepwiseEQL Solution.
+    D(q) = θ₂ᵈ ϕ₂ᵈ(q)
+┌──────┬─────────────────────┬───────┐
+│ Step │   θ₁ᵈ    θ₂ᵈ    θ₃ᵈ │  Loss │
+├──────┼─────────────────────┼───────┤
+│    1 │ -1.45  42.48  13.76 │ -4.19 │
+│    2 │  0.00  37.79  19.69 │ -5.46 │
+│    3 │  0.00  49.83   0.00 │ -7.97 │
+└──────┴─────────────────────┴───────┘</code></pre><p>(Note that the comma after <code>0.1</code> is necessary so that we get a <code>NamedTuple</code>, otherwise it doesn&#39;t parse as a <code>Tuple</code>. Compare:</p><pre><code class="language-julia hljs">threshold_tol = (q = 0.1) # same as threshold_tol = q = 0.1</code></pre><pre><code class="nohighlight hljs">0.1</code></pre><pre><code class="language-julia hljs">threshold_tol = (q=0.1,)</code></pre><pre><code class="nohighlight hljs">(q = 0.1,)</code></pre><p>This is only for <code>NamedTuple</code>s with a single element, e.g. <code>(a = 0.1, b = 0.2)</code> is fine.) We note also that if you want the LaTeX form of these tables, for <code>eql_sol</code> you could use for example:</p><pre><code class="language-julia hljs">latex_table(eql_sol)</code></pre><pre><code class="nohighlight hljs">StepwiseEQL Solution.
+    D(q) = θ₂ᵈ ϕ₂ᵈ(q)
+\begin{tabular}{|r|rrr|r|}
+  \hline
+  \textbf{Step} &amp; \textbf{$\theta_{1}^d$ } &amp; \textbf{$\theta_{2}^d$ } &amp; \textbf{$\theta_{3}^d$ } &amp; \textbf{Loss} \\\hline
+  1 &amp; -5.97 &amp; 70.73 &amp; \color{blue}{\textbf{-27.06}} &amp; $\infty$ \\
+  2 &amp; \color{blue}{\textbf{-1.46}} &amp; 47.11 &amp; 0.00 &amp; -4.33 \\
+  3 &amp; 0.00 &amp; 43.52 &amp; 0.00 &amp; -5.18 \\\hline
+\end{tabular}</code></pre><h2 id="Plotting"><a class="docs-heading-anchor" href="#Plotting">Plotting</a><a id="Plotting-1"></a><a class="docs-heading-anchor-permalink" href="#Plotting" title="Permalink"></a></h2><h3 id="Progression-of-the-Diffusion-Curves"><a class="docs-heading-anchor" href="#Progression-of-the-Diffusion-Curves">Progression of the Diffusion Curves</a><a id="Progression-of-the-Diffusion-Curves-1"></a><a class="docs-heading-anchor-permalink" href="#Progression-of-the-Diffusion-Curves" title="Permalink"></a></h3><p>Let us now examine our results. First, we see how the diffusion curve is changed at each step of our procedure, comparing the results with pruning and without pruning.</p><pre><code class="language-julia hljs">fig = Figure(fontsize=38)
+ax1 = Axis(fig[1, 1], xlabel=L&quot;q&quot;, ylabel=L&quot;D(q)&quot;,
+    width=600, height=300,
+    title=L&quot;(a): $D(q)$ without pruning&quot;, titlealign=:left,
+    xticks=(0:2:6, [L&quot;%$s&quot; for s in 0:2:6]),
+    yticks=(-20:20:80, [L&quot;%$s&quot; for s in -20:20:80]))
+ax2 = Axis(fig[1, 2], xlabel=L&quot;q&quot;, ylabel=L&quot;D(q)&quot;,
+    width=600, height=300,
+    title=L&quot;(b): $D(q)$ with pruning&quot;, titlealign=:left,
+    xticks=(0:2:6, [L&quot;%$s&quot; for s in 0:2:6]),
+    yticks=(-20:20:80, [L&quot;%$s&quot; for s in -20:20:80]))
+q_range = LinRange(1 / 10, 6, 250)
+Dθ_no_prune = eql_sol.diffusion_theta_history
+Dθ_prune = eql_sol2.diffusion_theta_history
+colors = (:red, :black, :lightgreen)
+linestyles = (:solid, :solid, :dash)
+for j in 1:3
+    lines!(ax1, q_range, diffusion_basis.(q_range, Ref(Dθ_no_prune[:, j]), Ref(nothing)), linewidth=6, linestyle=linestyles[j], color=colors[j], label=L&quot;Step $%$(j)$&quot;)
+    lines!(ax2, q_range, diffusion_basis.(q_range, Ref(Dθ_prune[:, j]), Ref(nothing)), linewidth=6, linestyle=linestyles[j], color=colors[j], label=L&quot;Step $%$(j)$&quot;)
+end
+for ax in (ax1, ax2)
+    ylims!(ax, -20, 80)
+    hlines!(ax, [0.0], color=:grey, linewidth=6, linestyle=:dash)
+end
+fig[1, 3] = Legend(fig, ax1)
+resize_to_layout!(fig)
+fig</code></pre><figure>
+    <img src='figure4.png', alt='Figure 4 from the paper'><br>
+</figure><h3 id="Comparing-Density-Results"><a class="docs-heading-anchor" href="#Comparing-Density-Results">Comparing Density Results</a><a id="Comparing-Density-Results-1"></a><a class="docs-heading-anchor-permalink" href="#Comparing-Density-Results" title="Permalink"></a></h3><p>Let us now compare the density results.</p><pre><code class="language-julia hljs">fig = Figure(fontsize=45, resolution=(1470, 961))
+ax = Axis(fig[1, 1], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x, t)&quot;,
+    width=600, height=300,
+    title=L&quot;(a):$ $ No pruning&quot;, titlealign=:left,
+    xticks=(0:10:30, [L&quot;%$s&quot; for s in 0:10:30]),
+    yticks=(0:2:6, [L&quot;%$s&quot; for s in 0:2:6]))
+ax2 = Axis(fig[1, 2], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x, t)&quot;,
+    width=600, height=300,
+    title=L&quot;(b):$ $ Pruning&quot;, titlealign=:left,
+    xticks=(0:10:30, [L&quot;%$s&quot; for s in 0:10:30]),
+    yticks=(0:2:6, [L&quot;%$s&quot; for s in 0:2:6]))
+t = (0, 1, 2, 3, 4, 5)
+colors = (:black, :red, :blue, :green, :orange, :purple)
+time_indices = [findlast(≤(τ), sol.t) for τ in t]
+for (j, i) in enumerate(time_indices)
+    lines!(ax, eql_sol.pde.geometry.mesh_points, eql_sol.pde_sol.u[i], color=colors[j], linestyle=:dash, linewidth=5)
+    lines!(ax, sol.u[i], node_densities(sol.u[i]), color=colors[j], linewidth=3)
+    lines!(ax2, eql_sol2.pde.geometry.mesh_points, eql_sol2.pde_sol.u[i], color=colors[j], linestyle=:dash, linewidth=5)
+    lines!(ax2, sol.u[i], node_densities(sol.u[i]), color=colors[j], linewidth=3, label=L&quot;%$(t[j])&quot;)
+end
+for ax in (ax, ax2)
+    arrows!(ax, [15.0, 23.0], [0.4, 3.0], [0.0, 4.0], [2.0, -2.0], color=:black, linewidth=8, arrowsize=40)
+    text!(ax, [15.7, 28.0], [2.0, 0.7], text=[L&quot;t&quot;, L&quot;t&quot;], color=:black, fontsize=47)
+    xlims!(ax, 0, 30)
+end
+ax3 = Axis(fig[2, 1:2], xlabel=L&quot;q&quot;, ylabel=L&quot;D(q)&quot;,
+    width=1200, height=300,
+    title=L&quot;(c): $D(q)$ comparison&quot;, titlealign=:left,
+    xticks=(0:2:6, [L&quot;%$s&quot; for s in 0:2:6]),
+    yticks=(0:20:80, [L&quot;%$s&quot; for s in 0:20:80]))
+D_no_prune = diffusion_basis.(q_range, Ref(eql_sol.diffusion_theta), Ref(nothing))
+D_prune = diffusion_basis.(q_range, Ref(eql_sol2.diffusion_theta), Ref(nothing))
+D_cont_fnc = q -&gt; (force_law_parameters.k / damping_constant) / q^2
+D_cont = D_cont_fnc.(q_range)
+lines!(ax3, q_range, D_no_prune, linewidth=6, color=:red, linestyle=:solid, label=L&quot;$ $Non-pruned&quot;)
+lines!(ax3, q_range, D_prune, linewidth=6, color=:black, linestyle=:solid, label=L&quot;$ $Pruned&quot;)
+lines!(ax3, q_range, D_cont, linewidth=6, color=:lightgreen, linestyle=:dash, label=L&quot;$ $Continuum limit&quot;)
+axislegend(position=:rt)
+ylims!(ax3, 0, 80)
+fig</code></pre><figure>
+    <img src='figure5.png', alt='Figure 5 from the paper'><br>
+</figure><h2 id="Just-the-code"><a class="docs-heading-anchor" href="#Just-the-code">Just the code</a><a id="Just-the-code-1"></a><a class="docs-heading-anchor-permalink" href="#Just-the-code" title="Permalink"></a></h2><p>An uncommented version of this example is given below. You can view the source code for this file <a href="https://github.com/DanielVandH/StepwiseEQL.jl/tree/main/docs/src/literate_case_studies/cs1.jl">here</a>.</p><pre><code class="language-julia hljs">using StepwiseEQL
+using CairoMakie
+using EpithelialDynamics1D
+using OrdinaryDiffEq
+
+force_law = (δ, p) -&gt; p.k * (p.s - δ)
+force_law_parameters = (k=50.0, s=0.2)
+final_time = 5.0
+damping_constant = 1.0
+initial_condition = [LinRange(0, 5, 30); LinRange(25, 30, 30)] |&gt; unique!
+prob = CellProblem(;
+    force_law,
+    force_law_parameters,
+    final_time,
+    damping_constant,
+    initial_condition)
+sol = solve(prob, Tsit5(), saveat=LinRange(0, final_time, 50))
+
+diffusion_basis = BasisSet(
+    (q, k) -&gt; inv(q),
+    (q, k) -&gt; inv(q^2),
+    (q, k) -&gt; inv(q^3),
+)
+
+diffusion_basis = PolynomialBasis(-1, -3)
+
+eql_sol = stepwise_selection(sol; diffusion_basis)
+
+eql_sol2 = stepwise_selection(sol; diffusion_basis, threshold_tol=(q=0.1,))
+
+threshold_tol = (q = 0.1) # same as threshold_tol = q = 0.1
+
+threshold_tol = (q=0.1,)
+
+latex_table(eql_sol)
+
+fig = Figure(fontsize=38)
+ax1 = Axis(fig[1, 1], xlabel=L&quot;q&quot;, ylabel=L&quot;D(q)&quot;,
+    width=600, height=300,
+    title=L&quot;(a): $D(q)$ without pruning&quot;, titlealign=:left,
+    xticks=(0:2:6, [L&quot;%$s&quot; for s in 0:2:6]),
+    yticks=(-20:20:80, [L&quot;%$s&quot; for s in -20:20:80]))
+ax2 = Axis(fig[1, 2], xlabel=L&quot;q&quot;, ylabel=L&quot;D(q)&quot;,
+    width=600, height=300,
+    title=L&quot;(b): $D(q)$ with pruning&quot;, titlealign=:left,
+    xticks=(0:2:6, [L&quot;%$s&quot; for s in 0:2:6]),
+    yticks=(-20:20:80, [L&quot;%$s&quot; for s in -20:20:80]))
+q_range = LinRange(1 / 10, 6, 250)
+Dθ_no_prune = eql_sol.diffusion_theta_history
+Dθ_prune = eql_sol2.diffusion_theta_history
+colors = (:red, :black, :lightgreen)
+linestyles = (:solid, :solid, :dash)
+for j in 1:3
+    lines!(ax1, q_range, diffusion_basis.(q_range, Ref(Dθ_no_prune[:, j]), Ref(nothing)), linewidth=6, linestyle=linestyles[j], color=colors[j], label=L&quot;Step $%$(j)$&quot;)
+    lines!(ax2, q_range, diffusion_basis.(q_range, Ref(Dθ_prune[:, j]), Ref(nothing)), linewidth=6, linestyle=linestyles[j], color=colors[j], label=L&quot;Step $%$(j)$&quot;)
+end
+for ax in (ax1, ax2)
+    ylims!(ax, -20, 80)
+    hlines!(ax, [0.0], color=:grey, linewidth=6, linestyle=:dash)
+end
+fig[1, 3] = Legend(fig, ax1)
+resize_to_layout!(fig)
+fig
+
+fig = Figure(fontsize=45, resolution=(1470, 961))
+ax = Axis(fig[1, 1], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x, t)&quot;,
+    width=600, height=300,
+    title=L&quot;(a):$ $ No pruning&quot;, titlealign=:left,
+    xticks=(0:10:30, [L&quot;%$s&quot; for s in 0:10:30]),
+    yticks=(0:2:6, [L&quot;%$s&quot; for s in 0:2:6]))
+ax2 = Axis(fig[1, 2], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x, t)&quot;,
+    width=600, height=300,
+    title=L&quot;(b):$ $ Pruning&quot;, titlealign=:left,
+    xticks=(0:10:30, [L&quot;%$s&quot; for s in 0:10:30]),
+    yticks=(0:2:6, [L&quot;%$s&quot; for s in 0:2:6]))
+t = (0, 1, 2, 3, 4, 5)
+colors = (:black, :red, :blue, :green, :orange, :purple)
+time_indices = [findlast(≤(τ), sol.t) for τ in t]
+for (j, i) in enumerate(time_indices)
+    lines!(ax, eql_sol.pde.geometry.mesh_points, eql_sol.pde_sol.u[i], color=colors[j], linestyle=:dash, linewidth=5)
+    lines!(ax, sol.u[i], node_densities(sol.u[i]), color=colors[j], linewidth=3)
+    lines!(ax2, eql_sol2.pde.geometry.mesh_points, eql_sol2.pde_sol.u[i], color=colors[j], linestyle=:dash, linewidth=5)
+    lines!(ax2, sol.u[i], node_densities(sol.u[i]), color=colors[j], linewidth=3, label=L&quot;%$(t[j])&quot;)
+end
+for ax in (ax, ax2)
+    arrows!(ax, [15.0, 23.0], [0.4, 3.0], [0.0, 4.0], [2.0, -2.0], color=:black, linewidth=8, arrowsize=40)
+    text!(ax, [15.7, 28.0], [2.0, 0.7], text=[L&quot;t&quot;, L&quot;t&quot;], color=:black, fontsize=47)
+    xlims!(ax, 0, 30)
+end
+ax3 = Axis(fig[2, 1:2], xlabel=L&quot;q&quot;, ylabel=L&quot;D(q)&quot;,
+    width=1200, height=300,
+    title=L&quot;(c): $D(q)$ comparison&quot;, titlealign=:left,
+    xticks=(0:2:6, [L&quot;%$s&quot; for s in 0:2:6]),
+    yticks=(0:20:80, [L&quot;%$s&quot; for s in 0:20:80]))
+D_no_prune = diffusion_basis.(q_range, Ref(eql_sol.diffusion_theta), Ref(nothing))
+D_prune = diffusion_basis.(q_range, Ref(eql_sol2.diffusion_theta), Ref(nothing))
+D_cont_fnc = q -&gt; (force_law_parameters.k / damping_constant) / q^2
+D_cont = D_cont_fnc.(q_range)
+lines!(ax3, q_range, D_no_prune, linewidth=6, color=:red, linestyle=:solid, label=L&quot;$ $Non-pruned&quot;)
+lines!(ax3, q_range, D_prune, linewidth=6, color=:black, linestyle=:solid, label=L&quot;$ $Pruned&quot;)
+lines!(ax3, q_range, D_cont, linewidth=6, color=:lightgreen, linestyle=:dash, label=L&quot;$ $Continuum limit&quot;)
+axislegend(position=:rt)
+ylims!(ax3, 0, 80)
+fig</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../figure_3/">« Reproducing Figure 3</a><a class="docs-footer-nextpage" href="../cs2/">Case Study 2 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Tuesday 22 August 2023 00:29">Tuesday 22 August 2023</span>. Using Julia version 1.9.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Reproducing Figure 2 · StepwiseEQL.jl</title><script data-outdated-warner src="../../assets/warner.js"></script><link rel="canonical" href="https://DanielVandH.github.io/StepwiseEQL.jl/case_studies/figure_2/"/><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">StepwiseEQL.jl</a></span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><a class="tocitem" href="../../installation/">Installation</a></li><li><a class="tocitem" href="../../repository_structure/">Repository Structure</a></li><li><a class="tocitem" href="../../algorithm/">The Algorithm</a></li><li><input class="collapse-toggle" id="menuitem-5" type="checkbox" checked/><label class="tocitem" for="menuitem-5"><span class="docs-label">Paper Results</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../overview/">Overview</a></li><li class="is-active"><a class="tocitem" href>Reproducing Figure 2</a><ul class="internal"><li><a class="tocitem" href="#Just-the-code"><span>Just the code</span></a></li></ul></li><li><a class="tocitem" href="../figure_3/">Reproducing Figure 3</a></li><li><a class="tocitem" href="../cs1/">Case Study 1</a></li><li><a class="tocitem" href="../cs2/">Case Study 2</a></li><li><input class="collapse-toggle" id="menuitem-5-6" type="checkbox"/><label class="tocitem" for="menuitem-5-6"><span class="docs-label">Case Study 3</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../cs3a/">Accurate continuum limit</a></li><li><a class="tocitem" href="../cs3b/">Inaccurate continuum limit</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-7" type="checkbox"/><label class="tocitem" for="menuitem-5-7"><span class="docs-label">Case Study 4</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../cs4a/">Accurate continuum limit</a></li><li><a class="tocitem" href="../cs4b/">Inaccurate continuum limit</a></li></ul></li><li><a class="tocitem" href="../../supplementary_material/new_density/">Discrete Densities at the Boundaries</a></li><li><a class="tocitem" href="../../supplementary_material/piecewise_prof/">A Piecewise Proliferation Law</a></li><li><a class="tocitem" href="../../supplementary_material/linear_diffusion/">Linear Diffusion</a></li><li><a class="tocitem" href="../../supplementary_material/parameter_sensitivity/">Parameter Sensitivity Study</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Paper Results</a></li><li class="is-active"><a href>Reproducing Figure 2</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Reproducing Figure 2</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/DanielVandH/StepwiseEQL.jl/tree/main/docs/src/literate_case_studies/figure_2.jl" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><div class="admonition is-success"><header class="admonition-header">Tip</header><div class="admonition-body"><p>This example is also available as a Jupyter notebook: <a href="https://github.com/DanielVandH/StepwiseEQL.jl/tree/main/docs/src/case_studies/notebooks/figure_2.ipynb"><code>figure_2.ipynb</code></a></p></div></div><h1 id="Reproducing-Figure-2"><a class="docs-heading-anchor" href="#Reproducing-Figure-2">Reproducing Figure 2</a><a id="Reproducing-Figure-2-1"></a><a class="docs-heading-anchor-permalink" href="#Reproducing-Figure-2" title="Permalink"></a></h1><p>The first four sections show results for the four case studies. Figure 2 of the paper shows the data used for these case studies, and the code below reproduces this figure. First, we load in the packages we need for the plots.</p><pre><code class="language-julia hljs">using StepwiseEQL
+using CairoMakie
+using EpithelialDynamics1D
+using OrdinaryDiffEq
+using LinearSolve
+using Random
+using StatsBase</code></pre><p>The part of the figure involving the first case study is produced below.</p><pre><code class="language-julia hljs"># Case study 1
+fig = Figure(fontsize=81, resolution=(3175, 2760))
+force_law = (δ, p) -&gt; p.k * (p.s - δ)
+force_law_parameters = (k=50.0, s=0.2)
+final_time = 5.0
+damping_constant = 1.0
+initial_condition = [LinRange(0, 5, 30); LinRange(25, 30, 30)] |&gt; unique!
+prob = CellProblem(;
+    force_law,
+    force_law_parameters,
+    final_time,
+    damping_constant,
+    initial_condition)
+sol = solve(prob, Tsit5(), saveat=0.01)
+pde = continuum_limit(prob, 2500, proliferation=false)
+pde_sol = solve(pde, TRBDF2(linsolve=KLUFactorization()), saveat=sol.t)
+q = node_densities.(sol.u)
+q_stack = (vec ∘ stack)(q)
+r_stack = (vec ∘ stack)(sol.u)
+t_stack = repeat(sol.t, inner=length(initial_condition))
+times = [0, 1, 2, 3, 4, 5]
+colors = (:black, :red, :blue, :green, :orange, :purple)
+time_indices = [findlast(≤(τ), sol.t) for τ in times]
+ax11 = Axis(fig[1, 1], xlabel=L&quot;x&quot;, ylabel=L&quot;t&quot;,
+    title=L&quot;(a):$ $ Case study 1&quot;, titlealign=:left,
+    width=1200, height=400,
+    xticks=(0:10:30, [L&quot;%$s&quot; for s in 0:10:30]),
+    yticks=(0:5, [L&quot;%$s&quot; for s in 0:5]))
+ax21 = Axis(fig[1, 2], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x, t)&quot;,
+    title=L&quot;(e):$ $ Case study 1&quot;, titlealign=:left,
+    width=1200, height=400, halign=:left,
+    xticks=(0:10:30, [L&quot;%$s&quot; for s in 0:10:30]),
+    yticks=(0:2:6, [L&quot;%$s&quot; for s in 0:2:6]))
+linkxaxes!(ax11, ax21)
+hm11 = tricontourf!(ax11, r_stack, t_stack, q_stack, levels=0:0.5:6, rasterize=true, extendhigh=:auto)
+tightlimits!(ax11)
+Colorbar(fig[1, 0], hm11, width=50, flipaxis=false,  label=L&quot;q(x, t)&quot;, ticks=(0:2:6, [L&quot;%$s&quot; for s in 0:2:6]), halign=:left)
+for (j, i) in enumerate(time_indices)
+    lines!(ax21, sol.u[i], q[i], color=colors[j], linewidth=9)
+    lines!(ax21, pde.geometry.mesh_points, pde_sol.u[i], color=colors[j], linestyle=:dash, linewidth=20)
+end
+xlims!(ax21, 0, 30)
+tightlimits!(ax11)
+tightlimits!(ax21)
+ylims!(ax21, 0, 6)
+arrows!(ax21, [15.0, 23.0], [0.4, 3.0], [0.0, 4.0], [2.0, -2.0], color=:black, linewidth=8, arrowsize=57)
+text!(ax21, [15.7, 28.0], [2.0, 0.7], text=[L&quot;t&quot;, L&quot;t&quot;], color=:black, fontsize=81)</code></pre><p>The part of the figure involving the second case study is produced below.</p><pre><code class="language-julia hljs"># Case study 2
+force_law = (δ, p) -&gt; p.k * (p.s - δ)
+force_law_parameters = (k=50.0, s=0.2)
+final_time = 100.0
+damping_constant = 1.0
+initial_condition = LinRange(0, 5, 60) |&gt; collect
+prob = CellProblem(;
+    force_law,
+    force_law_parameters,
+    final_time,
+    damping_constant,
+    initial_condition,
+    fix_right=false)
+sol = solve(prob, Tsit5(), saveat=0.1)
+pde = continuum_limit(prob, 2500, proliferation=false)
+pde_sol = solve(pde, TRBDF2(linsolve=KLUFactorization()), saveat=sol.t)
+q = node_densities.(sol.u)
+q_stack = (vec ∘ stack)(q)
+r_stack = (vec ∘ stack)(sol.u)
+t_stack = repeat(sol.t, inner=length(initial_condition))
+times = [0, 5, 10, 25, 50, 100]
+colors = (:black, :red, :blue, :green, :orange, :purple)
+time_indices = [findlast(≤(τ), sol.t) for τ in times]
+ax11 = Axis(fig[2, 1], xlabel=L&quot;x&quot;, ylabel=L&quot;t&quot;,
+    title=L&quot;(b):$ $ Case study 2&quot;, titlealign=:left,
+    width=1200, height=400,
+    xticks=(0:2:12, [L&quot;%$s&quot; for s in 0:2:12]),
+    yticks=(0:20:100, [L&quot;%$s&quot; for s in 0:20:100]))
+ax21 = Axis(fig[2, 2], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x, t)&quot;,
+    title=L&quot;(f):$ $ Case study 2&quot;, titlealign=:left,
+    width=1200, height=400,
+    xticks=(0:2:12, [L&quot;%$s&quot; for s in 0:2:12]),
+    yticks=(5:4:13, [L&quot;%$s&quot; for s in 5:4:13]))
+linkxaxes!(ax11, ax21)
+hm11 = tricontourf!(ax11, r_stack, t_stack, q_stack, levels=5:0.5:13, rasterize=true, extendhigh=:auto)
+Colorbar(fig[2, 0], hm11,  width=50,flipaxis=false, label=L&quot;q(x, t)&quot;, ticks=(5:2:13, [L&quot;%$s&quot; for s in 5:2:13]), halign=:left)
+@views for (j, i) in enumerate(time_indices)
+    lines!(ax21, sol.u[i], q[i], color=colors[j], linewidth=9)
+    lines!(ax21, pde.geometry.mesh_points * pde_sol.u[i][end], pde_sol.u[i][begin:(end-1)], color=colors[j], linestyle=:dash, linewidth=20)
+end
+lines!(ax11, sol[end, :], sol.t, color=:red, linewidth=16)
+tightlimits!(ax11)
+tightlimits!(ax21)
+ylims!(ax21, 4.5, 13)
+xlims!(ax21, 0, 12)
+xlims!(ax11, 0, 12)
+arrows!(ax21, [6.0], [12.0], [4.0], [-3.0], color=:black, linewidth=8, arrowsize=57)
+text!(ax21, [8.0], [11.0], text=L&quot;t&quot;, color=:black, fontsize=81)</code></pre><p>The part of the figure involving the third case study is produced below.</p><pre><code class="language-julia hljs"># Case study 3
+final_time = 50.0
+domain_length = 30.0
+midpoint = domain_length / 2
+initial_condition = [LinRange(0, 5, 30); LinRange(25, 30, 30)] |&gt; unique!
+damping_constant = 1.0
+resting_spring_length = 0.2
+spring_constant = 50.0
+k = spring_constant
+force_law_parameters = (s=resting_spring_length, k=spring_constant)
+force_law = (δ, p) -&gt; p.k * (p.s - δ)
+Δt = 1e-2
+K = 15.0
+β = 0.15
+G = (δ, p) -&gt; max(zero(δ), p.β * (one(δ) - inv(p.K * δ)))
+Gp = (β=β, K=K)
+prob = CellProblem(;
+    final_time,
+    initial_condition,
+    damping_constant,
+    force_law,
+    force_law_parameters,
+    proliferation_law=G,
+    proliferation_period=Δt,
+    proliferation_law_parameters=Gp)
+ens_prob = EnsembleProblem(prob)
+Random.seed!(292919)
+esol = solve(ens_prob, Tsit5(), EnsembleSerial(); trajectories=1000, saveat=0.1)
+pde = continuum_limit(prob, 2500, proliferation=true)
+pde_sol = solve(pde, TRBDF2(linsolve=KLUFactorization()), saveat=esol[1].t)
+(; q, r, means, lowers, uppers, knots) = node_densities(esol; stat=mean, extrapolate=true)
+q_stack = (vec ∘ stack)(means)
+r_stack = (vec ∘ stack)(knots)
+t_stack = repeat(esol[1].t, inner=length(knots[1]))
+times = [0.0, 1.0, 5.0, 10.0, 20.0, 50.0]
+colors = (:black, :red, :blue, :green, :orange, :purple)
+time_indices = [findlast(≤(τ), esol[1].t) for τ in times]
+ax11 = Axis(fig[3, 1], xlabel=L&quot;x&quot;, ylabel=L&quot;t&quot;,
+    title=L&quot;(c):$ $ Case study 3&quot;, titlealign=:left,
+    width=1200, height=400,
+    xticks=(0:10:30, [L&quot;%$s&quot; for s in 0:10:30]),
+    yticks=(0:10:50, [L&quot;%$s&quot; for s in 0:10:50]))
+ax21 = Axis(fig[3, 2], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x, t)&quot;,
+    title=L&quot;(g):$ $ Case study 3&quot;, titlealign=:left,
+    width=1200, height=400, halign=:left,
+    xticks=(0:10:30, [L&quot;%$s&quot; for s in 0:10:30]),
+    yticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]))
+linkxaxes!(ax11, ax21)
+hm11 = tricontourf!(ax11, r_stack, t_stack, q_stack, levels=0:1:15, rasterize=true, extendhigh=:auto)
+tightlimits!(ax11)
+Colorbar(fig[3, 0], hm11,  width=50,flipaxis=false, label=L&quot;q(x, t)&quot;, ticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]), halign=:left)
+for (j, i) in enumerate(time_indices)
+    lines!(ax21, knots[i], means[i], color=colors[j], linewidth=9)
+    lines!(ax21, pde.geometry.mesh_points, pde_sol.u[i], color=colors[j], linestyle=:dash, linewidth=20)
+end
+xlims!(ax21, 0, 30)
+tightlimits!(ax11)
+tightlimits!(ax21)
+ylims!(ax21, 0, 15.5)
+arrows!(ax21, [15.0], [3.0], [0.0], [7.5], color=:black, linewidth=12, arrowsize=57)
+text!(ax21, [15.5], [7.0], text=L&quot;t&quot;, color=:black, fontsize=81)</code></pre><p>The part of the figure involving the fourth case study is produced below.</p><pre><code class="language-julia hljs"># Case study 4
+final_time = 100.0
+domain_length = 30.0
+midpoint = domain_length / 2
+initial_condition = [LinRange(0, 5, 30);] |&gt; unique!
+damping_constant = 1.0
+resting_spring_length = 0.2
+spring_constant = 50.0
+k = spring_constant
+force_law_parameters = (s=resting_spring_length, k=spring_constant)
+force_law = (δ, p) -&gt; p.k * (p.s - δ)
+Δt = 1e-2
+K = 15.0
+β = 0.15
+G = (δ, p) -&gt; max(zero(δ), p.β * (one(δ) - inv(p.K * δ)))
+Gp = (β=β, K=K)
+prob = CellProblem(;
+    final_time,
+    initial_condition,
+    damping_constant,
+    force_law,
+    force_law_parameters,
+    proliferation_law=G,
+    proliferation_period=Δt,
+    proliferation_law_parameters=Gp,
+    fix_right=false)
+ens_prob = EnsembleProblem(prob)
+Random.seed!(292919)
+esol = solve(ens_prob, Tsit5(), EnsembleSerial(); trajectories=100, saveat=0.1)
+pde = continuum_limit(prob, 2500, proliferation=true)
+pde_sol = solve(pde, TRBDF2(linsolve=KLUFactorization()), saveat=esol[1].t)
+(; q, r, means, lowers, uppers, knots) = node_densities(esol, stat=mean, extrapolate=true)
+q_stack = (vec ∘ stack)(means)
+r_stack = (vec ∘ stack)(knots)
+t_stack = repeat(esol[1].t, inner=length(knots[1]))
+times = [0.0, 5.0, 10.0, 20.0, 50.0, 100.0]
+colors = (:black, :red, :blue, :green, :orange, :purple)
+time_indices = [findlast(≤(τ), esol[1].t) for τ in times]
+ax11 = Axis(fig[4, 1], xlabel=L&quot;x&quot;, ylabel=L&quot;t&quot;,
+    title=L&quot;(d):$ $ Case study 4&quot;, titlealign=:left,
+    width=1200, height=400,
+    xticks=(0:5:40, [L&quot;%$s&quot; for s in 0:5:40]),
+    yticks=(0:25:100, [L&quot;%$s&quot; for s in 0:25:100]))
+ax21 = Axis(fig[4, 2], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x, t)&quot;,
+    title=L&quot;(h):$ $ Case study 4&quot;, titlealign=:left,
+    width=1200, height=400, halign=:left,
+    xticks=(0:5:40, [L&quot;%$s&quot; for s in 0:5:40]),
+    yticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]))
+linkxaxes!(ax11, ax21)
+hm11 = tricontourf!(ax11, r_stack, t_stack, q_stack, levels=0:1:15, rasterize=true, extendhigh=:auto)
+Colorbar(fig[4, 0], hm11,  width=50,flipaxis=false, label=L&quot;q(x, t)&quot;, ticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]), halign=:left)
+@views for (j, i) in enumerate(time_indices)
+    lines!(ax21, knots[i], means[i], color=colors[j], linewidth=9)
+    lines!(ax21, pde.geometry.mesh_points * pde_sol.u[i][end], pde_sol.u[i][begin:(end-1)], color=colors[j], linestyle=:dash, linewidth=20)
+end
+lines!(ax11, leading_edges(esol).means, esol[1].t, color=:red, linewidth=16)
+tightlimits!(ax11)
+tightlimits!(ax21)
+ylims!(ax21, 0, 15.5)
+arrows!(ax21, [13.0], [3.0], [13.0], [0.0], color=:black, linewidth=12, arrowsize=57)
+text!(ax21, [22.0], [3.5], text=L&quot;t&quot;, fontsize=81)</code></pre><p>With all this, we finally obtain the figure.</p><pre><code class="language-julia hljs">fig</code></pre><figure>
+    <img src='figure2.png', alt='Figure 2 from the paper'><br>
+</figure><h2 id="Just-the-code"><a class="docs-heading-anchor" href="#Just-the-code">Just the code</a><a id="Just-the-code-1"></a><a class="docs-heading-anchor-permalink" href="#Just-the-code" title="Permalink"></a></h2><p>An uncommented version of this example is given below. You can view the source code for this file <a href="https://github.com/DanielVandH/StepwiseEQL.jl/tree/main/docs/src/literate_case_studies/figure_2.jl">here</a>.</p><pre><code class="language-julia hljs">using StepwiseEQL
+using CairoMakie
+using EpithelialDynamics1D
+using OrdinaryDiffEq
+using LinearSolve
+using Random
+using StatsBase
+
+# Case study 1
+fig = Figure(fontsize=81, resolution=(3175, 2760))
+force_law = (δ, p) -&gt; p.k * (p.s - δ)
+force_law_parameters = (k=50.0, s=0.2)
+final_time = 5.0
+damping_constant = 1.0
+initial_condition = [LinRange(0, 5, 30); LinRange(25, 30, 30)] |&gt; unique!
+prob = CellProblem(;
+    force_law,
+    force_law_parameters,
+    final_time,
+    damping_constant,
+    initial_condition)
+sol = solve(prob, Tsit5(), saveat=0.01)
+pde = continuum_limit(prob, 2500, proliferation=false)
+pde_sol = solve(pde, TRBDF2(linsolve=KLUFactorization()), saveat=sol.t)
+q = node_densities.(sol.u)
+q_stack = (vec ∘ stack)(q)
+r_stack = (vec ∘ stack)(sol.u)
+t_stack = repeat(sol.t, inner=length(initial_condition))
+times = [0, 1, 2, 3, 4, 5]
+colors = (:black, :red, :blue, :green, :orange, :purple)
+time_indices = [findlast(≤(τ), sol.t) for τ in times]
+ax11 = Axis(fig[1, 1], xlabel=L&quot;x&quot;, ylabel=L&quot;t&quot;,
+    title=L&quot;(a):$ $ Case study 1&quot;, titlealign=:left,
+    width=1200, height=400,
+    xticks=(0:10:30, [L&quot;%$s&quot; for s in 0:10:30]),
+    yticks=(0:5, [L&quot;%$s&quot; for s in 0:5]))
+ax21 = Axis(fig[1, 2], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x, t)&quot;,
+    title=L&quot;(e):$ $ Case study 1&quot;, titlealign=:left,
+    width=1200, height=400, halign=:left,
+    xticks=(0:10:30, [L&quot;%$s&quot; for s in 0:10:30]),
+    yticks=(0:2:6, [L&quot;%$s&quot; for s in 0:2:6]))
+linkxaxes!(ax11, ax21)
+hm11 = tricontourf!(ax11, r_stack, t_stack, q_stack, levels=0:0.5:6, rasterize=true, extendhigh=:auto)
+tightlimits!(ax11)
+Colorbar(fig[1, 0], hm11, width=50, flipaxis=false,  label=L&quot;q(x, t)&quot;, ticks=(0:2:6, [L&quot;%$s&quot; for s in 0:2:6]), halign=:left)
+for (j, i) in enumerate(time_indices)
+    lines!(ax21, sol.u[i], q[i], color=colors[j], linewidth=9)
+    lines!(ax21, pde.geometry.mesh_points, pde_sol.u[i], color=colors[j], linestyle=:dash, linewidth=20)
+end
+xlims!(ax21, 0, 30)
+tightlimits!(ax11)
+tightlimits!(ax21)
+ylims!(ax21, 0, 6)
+arrows!(ax21, [15.0, 23.0], [0.4, 3.0], [0.0, 4.0], [2.0, -2.0], color=:black, linewidth=8, arrowsize=57)
+text!(ax21, [15.7, 28.0], [2.0, 0.7], text=[L&quot;t&quot;, L&quot;t&quot;], color=:black, fontsize=81);
+
+# Case study 2
+force_law = (δ, p) -&gt; p.k * (p.s - δ)
+force_law_parameters = (k=50.0, s=0.2)
+final_time = 100.0
+damping_constant = 1.0
+initial_condition = LinRange(0, 5, 60) |&gt; collect
+prob = CellProblem(;
+    force_law,
+    force_law_parameters,
+    final_time,
+    damping_constant,
+    initial_condition,
+    fix_right=false)
+sol = solve(prob, Tsit5(), saveat=0.1)
+pde = continuum_limit(prob, 2500, proliferation=false)
+pde_sol = solve(pde, TRBDF2(linsolve=KLUFactorization()), saveat=sol.t)
+q = node_densities.(sol.u)
+q_stack = (vec ∘ stack)(q)
+r_stack = (vec ∘ stack)(sol.u)
+t_stack = repeat(sol.t, inner=length(initial_condition))
+times = [0, 5, 10, 25, 50, 100]
+colors = (:black, :red, :blue, :green, :orange, :purple)
+time_indices = [findlast(≤(τ), sol.t) for τ in times]
+ax11 = Axis(fig[2, 1], xlabel=L&quot;x&quot;, ylabel=L&quot;t&quot;,
+    title=L&quot;(b):$ $ Case study 2&quot;, titlealign=:left,
+    width=1200, height=400,
+    xticks=(0:2:12, [L&quot;%$s&quot; for s in 0:2:12]),
+    yticks=(0:20:100, [L&quot;%$s&quot; for s in 0:20:100]))
+ax21 = Axis(fig[2, 2], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x, t)&quot;,
+    title=L&quot;(f):$ $ Case study 2&quot;, titlealign=:left,
+    width=1200, height=400,
+    xticks=(0:2:12, [L&quot;%$s&quot; for s in 0:2:12]),
+    yticks=(5:4:13, [L&quot;%$s&quot; for s in 5:4:13]))
+linkxaxes!(ax11, ax21)
+hm11 = tricontourf!(ax11, r_stack, t_stack, q_stack, levels=5:0.5:13, rasterize=true, extendhigh=:auto)
+Colorbar(fig[2, 0], hm11,  width=50,flipaxis=false, label=L&quot;q(x, t)&quot;, ticks=(5:2:13, [L&quot;%$s&quot; for s in 5:2:13]), halign=:left)
+@views for (j, i) in enumerate(time_indices)
+    lines!(ax21, sol.u[i], q[i], color=colors[j], linewidth=9)
+    lines!(ax21, pde.geometry.mesh_points * pde_sol.u[i][end], pde_sol.u[i][begin:(end-1)], color=colors[j], linestyle=:dash, linewidth=20)
+end
+lines!(ax11, sol[end, :], sol.t, color=:red, linewidth=16)
+tightlimits!(ax11)
+tightlimits!(ax21)
+ylims!(ax21, 4.5, 13)
+xlims!(ax21, 0, 12)
+xlims!(ax11, 0, 12)
+arrows!(ax21, [6.0], [12.0], [4.0], [-3.0], color=:black, linewidth=8, arrowsize=57)
+text!(ax21, [8.0], [11.0], text=L&quot;t&quot;, color=:black, fontsize=81);
+
+# Case study 3
+final_time = 50.0
+domain_length = 30.0
+midpoint = domain_length / 2
+initial_condition = [LinRange(0, 5, 30); LinRange(25, 30, 30)] |&gt; unique!
+damping_constant = 1.0
+resting_spring_length = 0.2
+spring_constant = 50.0
+k = spring_constant
+force_law_parameters = (s=resting_spring_length, k=spring_constant)
+force_law = (δ, p) -&gt; p.k * (p.s - δ)
+Δt = 1e-2
+K = 15.0
+β = 0.15
+G = (δ, p) -&gt; max(zero(δ), p.β * (one(δ) - inv(p.K * δ)))
+Gp = (β=β, K=K)
+prob = CellProblem(;
+    final_time,
+    initial_condition,
+    damping_constant,
+    force_law,
+    force_law_parameters,
+    proliferation_law=G,
+    proliferation_period=Δt,
+    proliferation_law_parameters=Gp)
+ens_prob = EnsembleProblem(prob)
+Random.seed!(292919)
+esol = solve(ens_prob, Tsit5(), EnsembleSerial(); trajectories=1000, saveat=0.1)
+pde = continuum_limit(prob, 2500, proliferation=true)
+pde_sol = solve(pde, TRBDF2(linsolve=KLUFactorization()), saveat=esol[1].t)
+(; q, r, means, lowers, uppers, knots) = node_densities(esol; stat=mean, extrapolate=true)
+q_stack = (vec ∘ stack)(means)
+r_stack = (vec ∘ stack)(knots)
+t_stack = repeat(esol[1].t, inner=length(knots[1]))
+times = [0.0, 1.0, 5.0, 10.0, 20.0, 50.0]
+colors = (:black, :red, :blue, :green, :orange, :purple)
+time_indices = [findlast(≤(τ), esol[1].t) for τ in times]
+ax11 = Axis(fig[3, 1], xlabel=L&quot;x&quot;, ylabel=L&quot;t&quot;,
+    title=L&quot;(c):$ $ Case study 3&quot;, titlealign=:left,
+    width=1200, height=400,
+    xticks=(0:10:30, [L&quot;%$s&quot; for s in 0:10:30]),
+    yticks=(0:10:50, [L&quot;%$s&quot; for s in 0:10:50]))
+ax21 = Axis(fig[3, 2], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x, t)&quot;,
+    title=L&quot;(g):$ $ Case study 3&quot;, titlealign=:left,
+    width=1200, height=400, halign=:left,
+    xticks=(0:10:30, [L&quot;%$s&quot; for s in 0:10:30]),
+    yticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]))
+linkxaxes!(ax11, ax21)
+hm11 = tricontourf!(ax11, r_stack, t_stack, q_stack, levels=0:1:15, rasterize=true, extendhigh=:auto)
+tightlimits!(ax11)
+Colorbar(fig[3, 0], hm11,  width=50,flipaxis=false, label=L&quot;q(x, t)&quot;, ticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]), halign=:left)
+for (j, i) in enumerate(time_indices)
+    lines!(ax21, knots[i], means[i], color=colors[j], linewidth=9)
+    lines!(ax21, pde.geometry.mesh_points, pde_sol.u[i], color=colors[j], linestyle=:dash, linewidth=20)
+end
+xlims!(ax21, 0, 30)
+tightlimits!(ax11)
+tightlimits!(ax21)
+ylims!(ax21, 0, 15.5)
+arrows!(ax21, [15.0], [3.0], [0.0], [7.5], color=:black, linewidth=12, arrowsize=57)
+text!(ax21, [15.5], [7.0], text=L&quot;t&quot;, color=:black, fontsize=81);
+
+# Case study 4
+final_time = 100.0
+domain_length = 30.0
+midpoint = domain_length / 2
+initial_condition = [LinRange(0, 5, 30);] |&gt; unique!
+damping_constant = 1.0
+resting_spring_length = 0.2
+spring_constant = 50.0
+k = spring_constant
+force_law_parameters = (s=resting_spring_length, k=spring_constant)
+force_law = (δ, p) -&gt; p.k * (p.s - δ)
+Δt = 1e-2
+K = 15.0
+β = 0.15
+G = (δ, p) -&gt; max(zero(δ), p.β * (one(δ) - inv(p.K * δ)))
+Gp = (β=β, K=K)
+prob = CellProblem(;
+    final_time,
+    initial_condition,
+    damping_constant,
+    force_law,
+    force_law_parameters,
+    proliferation_law=G,
+    proliferation_period=Δt,
+    proliferation_law_parameters=Gp,
+    fix_right=false)
+ens_prob = EnsembleProblem(prob)
+Random.seed!(292919)
+esol = solve(ens_prob, Tsit5(), EnsembleSerial(); trajectories=100, saveat=0.1)
+pde = continuum_limit(prob, 2500, proliferation=true)
+pde_sol = solve(pde, TRBDF2(linsolve=KLUFactorization()), saveat=esol[1].t)
+(; q, r, means, lowers, uppers, knots) = node_densities(esol, stat=mean, extrapolate=true)
+q_stack = (vec ∘ stack)(means)
+r_stack = (vec ∘ stack)(knots)
+t_stack = repeat(esol[1].t, inner=length(knots[1]))
+times = [0.0, 5.0, 10.0, 20.0, 50.0, 100.0]
+colors = (:black, :red, :blue, :green, :orange, :purple)
+time_indices = [findlast(≤(τ), esol[1].t) for τ in times]
+ax11 = Axis(fig[4, 1], xlabel=L&quot;x&quot;, ylabel=L&quot;t&quot;,
+    title=L&quot;(d):$ $ Case study 4&quot;, titlealign=:left,
+    width=1200, height=400,
+    xticks=(0:5:40, [L&quot;%$s&quot; for s in 0:5:40]),
+    yticks=(0:25:100, [L&quot;%$s&quot; for s in 0:25:100]))
+ax21 = Axis(fig[4, 2], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x, t)&quot;,
+    title=L&quot;(h):$ $ Case study 4&quot;, titlealign=:left,
+    width=1200, height=400, halign=:left,
+    xticks=(0:5:40, [L&quot;%$s&quot; for s in 0:5:40]),
+    yticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]))
+linkxaxes!(ax11, ax21)
+hm11 = tricontourf!(ax11, r_stack, t_stack, q_stack, levels=0:1:15, rasterize=true, extendhigh=:auto)
+Colorbar(fig[4, 0], hm11,  width=50,flipaxis=false, label=L&quot;q(x, t)&quot;, ticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]), halign=:left)
+@views for (j, i) in enumerate(time_indices)
+    lines!(ax21, knots[i], means[i], color=colors[j], linewidth=9)
+    lines!(ax21, pde.geometry.mesh_points * pde_sol.u[i][end], pde_sol.u[i][begin:(end-1)], color=colors[j], linestyle=:dash, linewidth=20)
+end
+lines!(ax11, leading_edges(esol).means, esol[1].t, color=:red, linewidth=16)
+tightlimits!(ax11)
+tightlimits!(ax21)
+ylims!(ax21, 0, 15.5)
+arrows!(ax21, [13.0], [3.0], [13.0], [0.0], color=:black, linewidth=12, arrowsize=57)
+text!(ax21, [22.0], [3.5], text=L&quot;t&quot;, fontsize=81);
+
+fig</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../overview/">« Overview</a><a class="docs-footer-nextpage" href="../figure_3/">Reproducing Figure 3 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Tuesday 22 August 2023 00:29">Tuesday 22 August 2023</span>. Using Julia version 1.9.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
