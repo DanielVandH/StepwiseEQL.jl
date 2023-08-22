@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Case Study 2 · StepwiseEQL.jl</title><script data-outdated-warner src="../../assets/warner.js"></script><link rel="canonical" href="https://DanielVandH.github.io/StepwiseEQL.jl/case_studies/cs2/"/><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">StepwiseEQL.jl</a></span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><a class="tocitem" href="../../installation/">Installation</a></li><li><a class="tocitem" href="../../repository_structure/">Repository Structure</a></li><li><a class="tocitem" href="../../algorithm/">The Algorithm</a></li><li><input class="collapse-toggle" id="menuitem-5" type="checkbox" checked/><label class="tocitem" for="menuitem-5"><span class="docs-label">Paper Results</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../overview/">Overview</a></li><li><a class="tocitem" href="../figure_2/">Reproducing Figure 2</a></li><li><a class="tocitem" href="../figure_3/">Reproducing Figure 3</a></li><li><a class="tocitem" href="../cs1/">Case Study 1</a></li><li class="is-active"><a class="tocitem" href>Case Study 2</a><ul class="internal"><li><a class="tocitem" href="#Simulating"><span>Simulating</span></a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-6" type="checkbox"/><label class="tocitem" for="menuitem-5-6"><span class="docs-label">Case Study 3</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../cs3a/">Accurate continuum limit</a></li><li><a class="tocitem" href="../cs3b/">Inaccurate continuum limit</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-7" type="checkbox"/><label class="tocitem" for="menuitem-5-7"><span class="docs-label">Case Study 4</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../cs4a/">Accurate continuum limit</a></li><li><a class="tocitem" href="../cs4b/">Inaccurate continuum limit</a></li></ul></li><li><a class="tocitem" href="../../supplementary_material/new_density/">Discrete Densities at the Boundaries</a></li><li><a class="tocitem" href="../../supplementary_material/piecewise_prof/">A Piecewise Proliferation Law</a></li><li><a class="tocitem" href="../../supplementary_material/linear_diffusion/">Linear Diffusion</a></li><li><a class="tocitem" href="../../supplementary_material/parameter_sensitivity/">Parameter Sensitivity Study</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Paper Results</a></li><li class="is-active"><a href>Case Study 2</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Case Study 2</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/DanielVandH/StepwiseEQL.jl/tree/main/docs/src/literate_case_studies/cs2.jl" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><div class="admonition is-success"><header class="admonition-header">Tip</header><div class="admonition-body"><p>This example is also available as a Jupyter notebook: <a href="https://github.com/DanielVandH/StepwiseEQL.jl/tree/main/docs/src/case_studies/notebooks/cs2.ipynb"><code>cs2.ipynb</code></a></p></div></div><h1 id="Case-Studies:-Case-Study-2"><a class="docs-heading-anchor" href="#Case-Studies:-Case-Study-2">Case Studies: Case Study 2</a><a id="Case-Studies:-Case-Study-2-1"></a><a class="docs-heading-anchor-permalink" href="#Case-Studies:-Case-Study-2" title="Permalink"></a></h1><p>This example shows how we obtained the results in the paper for the second case study. Let us load in the package we will need.</p><pre><code class="language-julia hljs">using StepwiseEQL
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Case Study 2 · StepwiseEQL.jl</title><script data-outdated-warner src="../../assets/warner.js"></script><link rel="canonical" href="https://DanielVandH.github.io/StepwiseEQL.jl/case_studies/cs2/"/><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">StepwiseEQL.jl</a></span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><a class="tocitem" href="../../installation/">Installation</a></li><li><a class="tocitem" href="../../repository_structure/">Repository Structure</a></li><li><a class="tocitem" href="../../algorithm/">The Algorithm</a></li><li><input class="collapse-toggle" id="menuitem-5" type="checkbox" checked/><label class="tocitem" for="menuitem-5"><span class="docs-label">Paper Results</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../overview/">Overview</a></li><li><a class="tocitem" href="../figure_2/">Reproducing Figure 2</a></li><li><a class="tocitem" href="../figure_3/">Reproducing Figure 3</a></li><li><a class="tocitem" href="../cs1/">Case Study 1</a></li><li class="is-active"><a class="tocitem" href>Case Study 2</a><ul class="internal"><li><a class="tocitem" href="#Simulating"><span>Simulating</span></a></li><li><a class="tocitem" href="#Equation-learning"><span>Equation learning</span></a></li><li><a class="tocitem" href="#Conservation-of-mass"><span>Conservation of mass</span></a></li><li><a class="tocitem" href="#Just-the-code"><span>Just the code</span></a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-6" type="checkbox"/><label class="tocitem" for="menuitem-5-6"><span class="docs-label">Case Study 3</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../cs3a/">Accurate continuum limit</a></li><li><a class="tocitem" href="../cs3b/">Inaccurate continuum limit</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-7" type="checkbox"/><label class="tocitem" for="menuitem-5-7"><span class="docs-label">Case Study 4</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../cs4a/">Accurate continuum limit</a></li><li><a class="tocitem" href="../cs4b/">Inaccurate continuum limit</a></li></ul></li><li><a class="tocitem" href="../../supplementary_material/new_density/">Discrete Densities at the Boundaries</a></li><li><a class="tocitem" href="../../supplementary_material/piecewise_prof/">A Piecewise Proliferation Law</a></li><li><a class="tocitem" href="../../supplementary_material/linear_diffusion/">Linear Diffusion</a></li><li><a class="tocitem" href="../../supplementary_material/parameter_sensitivity/">Parameter Sensitivity Study</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Paper Results</a></li><li class="is-active"><a href>Case Study 2</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Case Study 2</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/DanielVandH/StepwiseEQL.jl/tree/main/docs/src/literate_case_studies/cs2.jl" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><div class="admonition is-success"><header class="admonition-header">Tip</header><div class="admonition-body"><p>This example is also available as a Jupyter notebook: <a href="https://github.com/DanielVandH/StepwiseEQL.jl/tree/main/docs/src/case_studies/notebooks/cs2.ipynb"><code>cs2.ipynb</code></a></p></div></div><h1 id="Case-Studies:-Case-Study-2"><a class="docs-heading-anchor" href="#Case-Studies:-Case-Study-2">Case Studies: Case Study 2</a><a id="Case-Studies:-Case-Study-2-1"></a><a class="docs-heading-anchor-permalink" href="#Case-Studies:-Case-Study-2" title="Permalink"></a></h1><p>This example shows how we obtained the results in the paper for the second case study. Let us load in the package we will need.</p><pre><code class="language-julia hljs">using StepwiseEQL
 using CairoMakie
 using EpithelialDynamics1D
 using OrdinaryDiffEq
@@ -38,234 +38,329 @@ u: 1000-element Vector{Vector{Float64}}:
  [0.0, 0.1955145324067704, 0.3907867309532305, 0.5865555859473159, 0.7816001656610787, 0.977632577970293, 1.1724669220336417, 1.3687693751488976, 1.5634134466584246, 1.7599897057316751  …  9.832578468378241, 10.032572689449998, 10.230665585957821, 10.430670537789483, 10.629228418943393, 10.829237066283419, 11.028270006667945, 11.228277253459972, 11.42779202307594, 11.627794783168833]
  [0.0, 0.19541020840180437, 0.39105836193654087, 0.5862439084596128, 0.7821406658261177, 0.9771174157905476, 1.1732707978093369, 1.3680571271244457, 1.5644725324358597, 1.7590892276392485  …  9.834254205411455, 10.03216958392982, 10.232131854947687, 10.430495376008865, 10.63047379676449, 10.82929673651816, 11.029285576300794, 11.228576066007403, 11.428571459133126, 11.62833440846054]
  [0.0, 0.19545891563597326, 0.391024136648353, 0.5863896193155502, 0.782072860056575, 0.9773589019384226, 1.1731706932539063, 1.3683923553349133, 1.5643420319325214, 1.7595153806039439  …  9.834533173145042, 10.033023016457076, 10.232477182205013, 10.431294252055933, 10.6308865316696, 10.830037075465086, 11.02976606100394, 11.229254577532869, 11.429119312229101, 11.628948515380984]
- [0.0, 0.19548478549047751, 0.39103530291603067, 0.5864670720036574, 0.7820953307762282, 0.9774874682155896, 1.1732047425227528, 1.3685712577181102, 1.5643880652452753, 1.7597435402083226  …  9.835017692166595, 10.033687117943265, 10.232986983756186, 10.431945814145724, 10.63142081442897, 10.830673741625754, 11.030323795760841, 11.229874195193434, 11.429699239628151, 11.629549146143887]
- ```
+ [0.0, 0.19548478549047751, 0.39103530291603067, 0.5864670720036574, 0.7820953307762282, 0.9774874682155896, 1.1732047425227528, 1.3685712577181102, 1.5643880652452753, 1.7597435402083226  …  9.835017692166595, 10.033687117943265, 10.232986983756186, 10.431945814145724, 10.63142081442897, 10.830673741625754, 11.030323795760841, 11.229874195193434, 11.429699239628151, 11.629549146143887]</code></pre><h2 id="Equation-learning"><a class="docs-heading-anchor" href="#Equation-learning">Equation learning</a><a id="Equation-learning-1"></a><a class="docs-heading-anchor-permalink" href="#Equation-learning" title="Permalink"></a></h2><p>We now define the equation learning problem. The mechanisms to learn are <span>$D(q)$</span>, <span>$H(q)$</span>, and <span>$E(q)$</span>. The basis functions we use are:</p><pre><code class="language-julia hljs">diffusion_basis = PolynomialBasis(-1, -3)
+rhs_basis = PolynomialBasis(1, 5)
+moving_boundary_basis = PolynomialBasis(-1, -3)</code></pre><pre><code class="nohighlight hljs">(::BasisSet{Tuple{StepwiseEQL.var&quot;#52#54&quot;{Int64}, StepwiseEQL.var&quot;#52#54&quot;{Int64}, StepwiseEQL.var&quot;#52#54&quot;{Int64}}}) (generic function with 3 methods)</code></pre><p>We now learn the equations. Our first attempt is below, where we use <code>initial=:none</code> so that we start with no coefficients initially active.</p><pre><code class="language-julia hljs">eql_sol = stepwise_selection(sol; diffusion_basis, rhs_basis, moving_boundary_basis,
+    mesh_points=500, initial=:none, threshold_tol=(q=0.35,))</code></pre><pre><code class="nohighlight hljs">StepwiseEQL Solution.
+    D(q) = θ₃ᵈ ϕ₃ᵈ(q)
+    H(q) = 0
+    E(q) = 0
+┌──────┬───────────────────┬──────────────────────────────┬──────────────────┬───────┐
+│ Step │  θ₁ᵈ   θ₂ᵈ    θ₃ᵈ │  θ₁ʰ   θ₂ʰ   θ₃ʰ   θ₄ʰ   θ₅ʰ │  θ₁ᵉ   θ₂ᵉ   θ₃ᵉ │  Loss │
+├──────┼───────────────────┼──────────────────────────────┼──────────────────┼───────┤
+│    1 │ 0.00  0.00   0.00 │ 0.00  0.00  0.00  0.00  0.00 │ 0.00  0.00  0.00 │ -1.40 │
+│    2 │ 0.00  0.00  25.06 │ 0.00  0.00  0.00  0.00  0.00 │ 0.00  0.00  0.00 │ -0.40 │
+└──────┴───────────────────┴──────────────────────────────┴──────────────────┴───────┘</code></pre><p>This result is clearly not perfect. To improve this, we limit the time range. We also re-simulate the cell dynamics with a saving frequency.</p><pre><code class="language-julia hljs">sol = solve(prob, Tsit5(), saveat=15 // 199)
+eql_sol = stepwise_selection(sol; diffusion_basis, rhs_basis, moving_boundary_basis,
+    mesh_points=500, initial=:none, threshold_tol=(q=0.35,),
+    time_range=(0.0, 15.0))</code></pre><pre><code class="nohighlight hljs">StepwiseEQL Solution.
+    D(q) = θ₂ᵈ ϕ₂ᵈ(q)
+    H(q) = θ₁ʰ ϕ₁ʰ(q) + θ₂ʰ ϕ₂ʰ(q)
+    E(q) = θ₁ᵉ ϕ₁ᵉ(q)
+┌──────┬───────────────────┬───────────────────────────────┬──────────────────┬───────┐
+│ Step │  θ₁ᵈ    θ₂ᵈ   θ₃ᵈ │  θ₁ʰ    θ₂ʰ   θ₃ʰ   θ₄ʰ   θ₅ʰ │  θ₁ᵉ   θ₂ᵉ   θ₃ᵉ │  Loss │
+├──────┼───────────────────┼───────────────────────────────┼──────────────────┼───────┤
+│    1 │ 0.00   0.00  0.00 │ 0.00   0.00  0.00  0.00  0.00 │ 0.00  0.00  0.00 │ -3.37 │
+│    2 │ 0.00   0.00  0.00 │ 0.00  -0.03  0.00  0.00  0.00 │ 0.00  0.00  0.00 │ -2.37 │
+│    3 │ 0.00   0.00  0.00 │ 0.00  -0.03  0.00  0.00  0.00 │ 8.74  0.00  0.00 │ -3.68 │
+│    4 │ 0.00  47.38  0.00 │ 0.00  -0.03  0.00  0.00  0.00 │ 8.74  0.00  0.00 │ -4.02 │
+│    5 │ 0.00  47.38  0.00 │ 8.41  -1.69  0.00  0.00  0.00 │ 8.74  0.00  0.00 │ -8.14 │
+└──────┴───────────────────┴───────────────────────────────┴──────────────────┴───────┘</code></pre><p>These results have improved slightly. To plot them, we use the following function.</p><pre><code class="language-julia hljs">function plot_results(eql_sol, sol, k, s, η, diffusion_basis, rhs_basis, moving_boundary_basis, conserve_mass=false)
+    t = (0, 5, 10, 25, 50, 100)
+    prob = sol.prob.p
+    prob = @set prob.final_time = 100.0
+    sol = solve(prob, Tsit5(), saveat=[collect(t); LinRange(0, 100, 2500)] |&gt; sort |&gt; unique)
+    time_indices = [findlast(≤(τ), sol.t) for τ in t]
+    colors = (:black, :red, :blue, :green, :orange, :purple, :brown)
 
-## Equation learning
-We now define the equation learning problem. The mechanisms to learn are $D(q)$, $H(q)$, and
-$E(q)$. The basis functions we use are:
-</code></pre><p>julia diffusion<em>basis = PolynomialBasis(-1, -3) rhs</em>basis = PolynomialBasis(1, 5) moving<em>boundary</em>basis = PolynomialBasis(-1, -3)</p><pre><code class="nohighlight hljs"></code></pre><p>(::BasisSet{Tuple{StepwiseEQL.var&quot;#52#54&quot;{Int64}, StepwiseEQL.var&quot;#52#54&quot;{Int64}, StepwiseEQL.var&quot;#52#54&quot;{Int64}}}) (generic function with 3 methods)</p><pre><code class="nohighlight hljs">
-We now learn the equations. Our first attempt is below, where we use `initial=:none` so that we start
-with no coefficients initially active.
-</code></pre><p>julia eql<em>sol = stepwise</em>selection(sol; diffusion<em>basis, rhs</em>basis, moving<em>boundary</em>basis,     mesh<em>points=500, initial=:none, threshold</em>tol=(q=0.35,))</p><pre><code class="nohighlight hljs"></code></pre><p>StepwiseEQL Solution.     D(q) = θ₃ᵈ ϕ₃ᵈ(q)     H(q) = 0     E(q) = 0 ┌──────┬───────────────────┬──────────────────────────────┬──────────────────┬───────┐ │ Step │  θ₁ᵈ   θ₂ᵈ    θ₃ᵈ │  θ₁ʰ   θ₂ʰ   θ₃ʰ   θ₄ʰ   θ₅ʰ │  θ₁ᵉ   θ₂ᵉ   θ₃ᵉ │  Loss │ ├──────┼───────────────────┼──────────────────────────────┼──────────────────┼───────┤ │    1 │ 0.00  0.00   0.00 │ 0.00  0.00  0.00  0.00  0.00 │ 0.00  0.00  0.00 │ -1.40 │ │    2 │ 0.00  0.00  25.06 │ 0.00  0.00  0.00  0.00  0.00 │ 0.00  0.00  0.00 │ -0.40 │ └──────┴───────────────────┴──────────────────────────────┴──────────────────┴───────┘</p><pre><code class="nohighlight hljs">
-This result is clearly not perfect. To improve this, we limit the time range. We also
-re-simulate the cell dynamics with a saving frequency.
-</code></pre><p>julia sol = solve(prob, Tsit5(), saveat=15 // 199) eql<em>sol = stepwise</em>selection(sol; diffusion<em>basis, rhs</em>basis, moving<em>boundary</em>basis,     mesh<em>points=500, initial=:none, threshold</em>tol=(q=0.35,),     time_range=(0.0, 15.0))</p><pre><code class="nohighlight hljs"></code></pre><p>StepwiseEQL Solution.     D(q) = θ₂ᵈ ϕ₂ᵈ(q)     H(q) = θ₁ʰ ϕ₁ʰ(q) + θ₂ʰ ϕ₂ʰ(q)     E(q) = θ₁ᵉ ϕ₁ᵉ(q) ┌──────┬───────────────────┬───────────────────────────────┬──────────────────┬───────┐ │ Step │  θ₁ᵈ    θ₂ᵈ   θ₃ᵈ │  θ₁ʰ    θ₂ʰ   θ₃ʰ   θ₄ʰ   θ₅ʰ │  θ₁ᵉ   θ₂ᵉ   θ₃ᵉ │  Loss │ ├──────┼───────────────────┼───────────────────────────────┼──────────────────┼───────┤ │    1 │ 0.00   0.00  0.00 │ 0.00   0.00  0.00  0.00  0.00 │ 0.00  0.00  0.00 │ -3.37 │ │    2 │ 0.00   0.00  0.00 │ 0.00  -0.03  0.00  0.00  0.00 │ 0.00  0.00  0.00 │ -2.37 │ │    3 │ 0.00   0.00  0.00 │ 0.00  -0.03  0.00  0.00  0.00 │ 8.74  0.00  0.00 │ -3.68 │ │    4 │ 0.00  47.38  0.00 │ 0.00  -0.03  0.00  0.00  0.00 │ 8.74  0.00  0.00 │ -4.02 │ │    5 │ 0.00  47.38  0.00 │ 8.41  -1.69  0.00  0.00  0.00 │ 8.74  0.00  0.00 │ -8.14 │ └──────┴───────────────────┴───────────────────────────────┴──────────────────┴───────┘</p><pre><code class="nohighlight hljs">
-These results have improved slightly. To plot them, we use the following function.
-</code></pre><p>julia function plot<em>results(eql</em>sol, sol, k, s, η, diffusion<em>basis, rhs</em>basis, moving<em>boundary</em>basis, conserve<em>mass=false)     t = (0, 5, 10, 25, 50, 100)     prob = sol.prob.p     prob = @set prob.final</em>time = 100.0     sol = solve(prob, Tsit5(), saveat=[collect(t); LinRange(0, 100, 2500)] |&gt; sort |&gt; unique)     time_indices = [findlast(≤(τ), sol.t) for τ in t]     colors = (:black, :red, :blue, :green, :orange, :purple, :brown)</p><pre><code class="nohighlight hljs">pde = eql_sol.pde
-pde = @set pde.final_time = 100.0 # need to resolve so that we plot over the complete time interval
-pde_sol = solve(pde, TRBDF2(linsolve=KLUFactorization()), saveat=sol.t)
-pde_continuum = deepcopy(pde)
-pde_continuum.diffusion_parameters.θ .= [0, k / η, 0]
-pde_continuum.boundary_conditions.rhs.p.θ .= [0, 2.0, -2.0s, 0, 0]
-pde_continuum.boundary_conditions.moving_boundary.p.θ .= [0, k / η, 0]
-pde_ξ = pde_continuum.geometry.mesh_points
-pde_L = pde_sol[end, :]
-pde_q = pde_sol[begin:(end-1), :]
-cell_q = node_densities.(sol.u)
-cell_r = sol.u
-cell_L = sol[end, :]
+    pde = eql_sol.pde
+    pde = @set pde.final_time = 100.0 # need to resolve so that we plot over the complete time interval
+    pde_sol = solve(pde, TRBDF2(linsolve=KLUFactorization()), saveat=sol.t)
+    pde_continuum = deepcopy(pde)
+    pde_continuum.diffusion_parameters.θ .= [0, k / η, 0]
+    pde_continuum.boundary_conditions.rhs.p.θ .= [0, 2.0, -2.0s, 0, 0]
+    pde_continuum.boundary_conditions.moving_boundary.p.θ .= [0, k / η, 0]
+    pde_ξ = pde_continuum.geometry.mesh_points
+    pde_L = pde_sol[end, :]
+    pde_q = pde_sol[begin:(end-1), :]
+    cell_q = node_densities.(sol.u)
+    cell_r = sol.u
+    cell_L = sol[end, :]
 
-q_range = LinRange(5, 12, 250)
+    q_range = LinRange(5, 12, 250)
 
-fig = Figure(fontsize=45, resolution=(2220, 961))
-top_grid = fig[1, 1] = GridLayout(1, 2)
-bottom_grid = fig[2, 1] = GridLayout(1, 3)
+    fig = Figure(fontsize=45, resolution=(2220, 961))
+    top_grid = fig[1, 1] = GridLayout(1, 2)
+    bottom_grid = fig[2, 1] = GridLayout(1, 3)
 
-ax_pde = Axis(top_grid[1, 1], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x,t)&quot;, width=950, height=300,
-    title=L&quot;(a):$ $ PDE comparison&quot;, titlealign=:left,
-    xticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]), yticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]))
-for (j, i) in enumerate(time_indices)
-    lines!(ax_pde, pde_ξ * pde_L[i], pde_q[:, i], color=colors[j], linestyle=:dash, linewidth=8)
-    lines!(ax_pde, cell_r[i], cell_q[i], color=colors[j], linewidth=4, label=L&quot;%$(t[j])&quot;)
-end
-arrows!(ax_pde, [6.0], [12.0], [4.0], [-3.0], color=:black, linewidth=8, arrowsize=40)
-text!(ax_pde, [8.0], [11.0], text=L&quot;t&quot;, color=:black, fontsize=63)
-xlims!(ax_pde, 0, 15)
-ylims!(ax_pde, 4, 16)
-
-ax_leading_edge = Axis(top_grid[1, 2], xlabel=L&quot;t&quot;, ylabel=L&quot;L(t)&quot;, width=950, height=300,
-    title=L&quot;(b):$ $ Leading edge comparison&quot;, titlealign=:left,
-    xticks=(0:10:100, [L&quot;%$s&quot; for s in 0:10:100]), yticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]))
-lines!(ax_leading_edge, pde_sol.t, pde_L, color=:red, linestyle=:dash, linewidth=5, label=L&quot;$ $Learned&quot;)
-lines!(ax_leading_edge, sol.t, cell_L, color=:black, linewidth=3, label=L&quot;$ $Discrete&quot;)
-axislegend(position=:rb)
-xlims!(ax_leading_edge, 0, 100)
-ylims!(ax_leading_edge, 0, 15)
-
-ax_diffusion = Axis(bottom_grid[1, 1],
-    xlabel=L&quot;q&quot;, ylabel=L&quot;D(q)&quot;, width=600, height=300,
-    title=L&quot;(c): $D(q)$ comparison&quot;, titlealign=:left,
-    xticks=(5:3:12, [L&quot;%$s&quot; for s in 5:3:12]), yticks=(0:5, [L&quot;%$s&quot; for s in 0:5]))
-D_cont_fnc = q -&gt; (k / η) / q^2
-D_cont = D_cont_fnc.(q_range)
-local D_sol
-try
-    D_sol = diffusion_basis.(q_range, Ref(eql_sol.diffusion_theta), Ref(nothing))
-catch e
-    print(e)
-    D_sol = D_cont
-end
-lines!(ax_diffusion, q_range, D_sol, linewidth=6, color=:red, linestyle=:solid, label=L&quot;$ $Learned&quot;)
-lines!(ax_diffusion, q_range, D_cont, linewidth=6, color=:black, linestyle=:dashdot, label=L&quot;$ $Continuum limit&quot;)
-axislegend(position=:rt)
-xlims!(ax_diffusion, 5, 12)
-ylims!(ax_diffusion, 0, 5)
-
-ax_rhs = Axis(bottom_grid[1, 2],
-    xlabel=L&quot;q&quot;, ylabel=L&quot;H(q)&quot;, width=600, height=300,
-    title=L&quot;(d): $H(q)$ comparison&quot;, titlealign=:left,
-    xticks=(5:3:12, [L&quot;%$s&quot; for s in 5:3:12]), yticks=(-100:40:20, [L&quot;%$s&quot; for s in -100:40:20]))
-RHS_cont_fnc = q -&gt; 2q^2 * (1 - s * q)
-RHS_cont = RHS_cont_fnc.(q_range)
-local RHS_sol
-try
-    RHS_sol = rhs_basis.(q_range, Ref(eql_sol.rhs_theta), Ref(nothing))
-catch e
-    print(e)
-    RHS_sol = RHS_cont
-end
-lines!(ax_rhs, q_range, RHS_sol, linewidth=6, color=:red, linestyle=:solid, label=L&quot;$ $Learned&quot;)
-lines!(ax_rhs, q_range, RHS_cont, linewidth=6, color=:black, linestyle=:dashdot, label=L&quot;$ $Continuum limit&quot;)
-axislegend(position=:rt)
-xlims!(ax_rhs, 5, 12)
-ylims!(ax_rhs, -100, 20)
-
-ax_moving_boundary = Axis(bottom_grid[1, 3],
-    xlabel=L&quot;q&quot;, ylabel=L&quot;E(q)&quot;, width=600, height=300,
-    title=L&quot;(e): $E(q)$ comparison&quot;, titlealign=:left,
-    xticks=(5:3:12, [L&quot;%$s&quot; for s in 5:3:12]), yticks=(0:5, [L&quot;%$s&quot; for s in 0:5]))
-MB_cont_fnc = q -&gt; (k / η) / q^2
-MB_cont = MB_cont_fnc.(q_range)
-local MB_sol
-try
-    if !conserve_mass
-        MB_sol = moving_boundary_basis.(q_range, Ref(eql_sol.moving_boundary_theta), Ref(nothing))
-    else
-        MB_sol = moving_boundary_basis.(q_range, Ref(eql_sol.diffusion_theta), Ref(nothing))
+    ax_pde = Axis(top_grid[1, 1], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x,t)&quot;, width=950, height=300,
+        title=L&quot;(a):$ $ PDE comparison&quot;, titlealign=:left,
+        xticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]), yticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]))
+    for (j, i) in enumerate(time_indices)
+        lines!(ax_pde, pde_ξ * pde_L[i], pde_q[:, i], color=colors[j], linestyle=:dash, linewidth=8)
+        lines!(ax_pde, cell_r[i], cell_q[i], color=colors[j], linewidth=4, label=L&quot;%$(t[j])&quot;)
     end
-catch e
-    print(e)
-    MB_sol = MB_cont
-end
-lines!(ax_moving_boundary, q_range, MB_sol, linewidth=6, color=:red, linestyle=:solid, label=L&quot;$ $Learned&quot;)
-lines!(ax_moving_boundary, q_range, MB_cont, linewidth=6, color=:black, linestyle=:dashdot, label=L&quot;$ $Continuum limit&quot;)
-axislegend(position=:rt)
-xlims!(ax_moving_boundary, 5, 12)
-ylims!(ax_moving_boundary, 0, 5)
-fig</code></pre><p>end</p><pre><code class="nohighlight hljs">
-Using this function, we obtain the plot below.
-</code></pre><p>julia fig = plot<em>results(eql</em>sol, sol, k, s, η, diffusion<em>basis, rhs</em>basis, moving<em>boundary</em>basis)</p><pre><code class="nohighlight hljs"></code></pre><p>@raw html &lt;figure&gt;     &lt;img src=&#39;figure6.png&#39;, alt=&#39;Figure 6 from the paper&#39;&gt;&lt;br&gt; &lt;/figure&gt;</p><pre><code class="nohighlight hljs">
-Since the leading edges start to diverge for late time, we need to prune the matrix slightly.
-We do this as follows, giving our improved results.
-</code></pre><p>julia eql<em>sol = stepwise</em>selection(sol; diffusion<em>basis, rhs</em>basis, moving<em>boundary</em>basis,     mesh<em>points=500, initial=:none, threshold</em>tol=(q=0.35, dL=0.1),     time_range=(0.0, 15.0))</p><pre><code class="nohighlight hljs"></code></pre><p>StepwiseEQL Solution.     D(q) = θ₂ᵈ ϕ₂ᵈ(q)     H(q) = θ₁ʰ ϕ₁ʰ(q) + θ₂ʰ ϕ₂ʰ(q)     E(q) = θ₁ᵉ ϕ₁ᵉ(q) ┌──────┬───────────────────┬───────────────────────────────┬──────────────────┬────────┐ │ Step │  θ₁ᵈ    θ₂ᵈ   θ₃ᵈ │  θ₁ʰ    θ₂ʰ   θ₃ʰ   θ₄ʰ   θ₅ʰ │  θ₁ᵉ   θ₂ᵉ   θ₃ᵉ │   Loss │ ├──────┼───────────────────┼───────────────────────────────┼──────────────────┼────────┤ │    1 │ 0.00   0.00  0.00 │ 0.00   0.00  0.00  0.00  0.00 │ 0.00  0.00  0.00 │  -3.37 │ │    2 │ 0.00   0.00  0.00 │ 0.00  -0.03  0.00  0.00  0.00 │ 0.00  0.00  0.00 │  -2.37 │ │    3 │ 0.00   0.00  0.00 │ 0.00  -0.03  0.00  0.00  0.00 │ 9.42  0.00  0.00 │  -3.93 │ │    4 │ 0.00  47.38  0.00 │ 0.00  -0.03  0.00  0.00  0.00 │ 9.42  0.00  0.00 │  -4.41 │ │    5 │ 0.00  47.38  0.00 │ 8.41  -1.69  0.00  0.00  0.00 │ 9.42  0.00  0.00 │ -12.23 │ └──────┴───────────────────┴───────────────────────────────┴──────────────────┴────────┘</p><pre><code class="nohighlight hljs"></code></pre><p>julia fig = plot<em>results(eql</em>sol, sol, k, s, η, diffusion<em>basis, rhs</em>basis, moving<em>boundary</em>basis)</p><pre><code class="nohighlight hljs"></code></pre><p>@raw html &lt;figure&gt;     &lt;img src=&#39;figure7.png&#39;, alt=&#39;Figure 7 from the paper&#39;&gt;&lt;br&gt; &lt;/figure&gt;</p><pre><code class="nohighlight hljs">
-## Conservation of mass
-If we want to enforce conservation of mass, we can set $D(q) = E(q)$ by simply using
-the keyword argument `conserve_mass=true` as below. These are the results that we
-describe in more detail in the supplementary material of our paper.
-</code></pre><p>julia eql<em>sol = stepwise</em>selection(sol; diffusion<em>basis, rhs</em>basis, moving<em>boundary</em>basis,     mesh<em>points=500, initial=:none, threshold</em>tol=(q=0.35, dL=0.1),     time<em>range=(0.0, 15.0), conserve</em>mass=true)</p><pre><code class="nohighlight hljs"></code></pre><p>StepwiseEQL Solution.     D(q) = θ₂ᵈ ϕ₂ᵈ(q)     H(q) = θ₂ʰ ϕ₂ʰ(q) + θ₅ʰ ϕ₅ʰ(q) ┌──────┬───────────────────┬────────────────────────────────┬────────┐ │ Step │  θ₁ᵈ    θ₂ᵈ   θ₃ᵈ │  θ₁ʰ    θ₂ʰ   θ₃ʰ   θ₄ʰ    θ₅ʰ │   Loss │ ├──────┼───────────────────┼────────────────────────────────┼────────┤ │    1 │ 0.00   0.00  0.00 │ 0.00   0.00  0.00  0.00   0.00 │  -3.37 │ │    2 │ 0.00   0.00  0.00 │ 0.00  -0.03  0.00  0.00   0.00 │  -2.37 │ │    3 │ 0.00  47.41  0.00 │ 0.00  -0.03  0.00  0.00   0.00 │  -3.85 │ │    4 │ 0.00  47.41  0.00 │ 0.00   0.44  0.00  0.00  -0.00 │ -10.64 │ └──────┴───────────────────┴────────────────────────────────┴────────┘</p><pre><code class="nohighlight hljs"></code></pre><p>julia fig = plot<em>results(eql</em>sol, sol, k, s, η, diffusion<em>basis, rhs</em>basis, moving<em>boundary</em>basis, true)</p><pre><code class="nohighlight hljs"></code></pre><p>@raw html &lt;figure&gt;     &lt;img src=&#39;sfigure_conserve.png&#39;, alt=&#39;Figure S2 from the paper&#39;&gt;&lt;br&gt; &lt;/figure&gt;</p><pre><code class="nohighlight hljs">
-## Just the code
-An uncommented version of this example is given below.
-You can view the source code for this file [here](https://github.com/DanielVandH/StepwiseEQL.jl/tree/main/docs/src/literate_case_studies/cs2.jl).
-</code></pre><p>julia using StepwiseEQL using CairoMakie using EpithelialDynamics1D using OrdinaryDiffEq using Setfield using LinearSolve</p><p>k, η, s = 50.0, 1.0, 1 / 5 force<em>law = (δ, p) -&gt; p.k * (p.s - δ) force</em>law<em>parameters = (k=k, s=s) initial</em>condition = LinRange(0, 5, 60) |&gt; collect prob = CellProblem(;     force<em>law,     force</em>law<em>parameters,     final</em>time=100.0,     damping<em>constant=η,     initial</em>condition,     fix_right=false) sol = solve(prob, Tsit5(), saveat=LinRange(0, 100.0, 1000))</p><p>diffusion<em>basis = PolynomialBasis(-1, -3) rhs</em>basis = PolynomialBasis(1, 5) moving<em>boundary</em>basis = PolynomialBasis(-1, -3)</p><p>eql<em>sol = stepwise</em>selection(sol; diffusion<em>basis, rhs</em>basis, moving<em>boundary</em>basis,     mesh<em>points=500, initial=:none, threshold</em>tol=(q=0.35,))</p><p>sol = solve(prob, Tsit5(), saveat=15 // 199) eql<em>sol = stepwise</em>selection(sol; diffusion<em>basis, rhs</em>basis, moving<em>boundary</em>basis,     mesh<em>points=500, initial=:none, threshold</em>tol=(q=0.35,),     time_range=(0.0, 15.0))</p><p>function plot<em>results(eql</em>sol, sol, k, s, η, diffusion<em>basis, rhs</em>basis, moving<em>boundary</em>basis, conserve<em>mass=false)     t = (0, 5, 10, 25, 50, 100)     prob = sol.prob.p     prob = @set prob.final</em>time = 100.0     sol = solve(prob, Tsit5(), saveat=[collect(t); LinRange(0, 100, 2500)] |&gt; sort |&gt; unique)     time_indices = [findlast(≤(τ), sol.t) for τ in t]     colors = (:black, :red, :blue, :green, :orange, :purple, :brown)</p><pre><code class="nohighlight hljs">pde = eql_sol.pde
-pde = @set pde.final_time = 100.0 # need to resolve so that we plot over the complete time interval
-pde_sol = solve(pde, TRBDF2(linsolve=KLUFactorization()), saveat=sol.t)
-pde_continuum = deepcopy(pde)
-pde_continuum.diffusion_parameters.θ .= [0, k / η, 0]
-pde_continuum.boundary_conditions.rhs.p.θ .= [0, 2.0, -2.0s, 0, 0]
-pde_continuum.boundary_conditions.moving_boundary.p.θ .= [0, k / η, 0]
-pde_ξ = pde_continuum.geometry.mesh_points
-pde_L = pde_sol[end, :]
-pde_q = pde_sol[begin:(end-1), :]
-cell_q = node_densities.(sol.u)
-cell_r = sol.u
-cell_L = sol[end, :]
+    arrows!(ax_pde, [6.0], [12.0], [4.0], [-3.0], color=:black, linewidth=8, arrowsize=40)
+    text!(ax_pde, [8.0], [11.0], text=L&quot;t&quot;, color=:black, fontsize=63)
+    xlims!(ax_pde, 0, 15)
+    ylims!(ax_pde, 4, 16)
 
-q_range = LinRange(5, 12, 250)
+    ax_leading_edge = Axis(top_grid[1, 2], xlabel=L&quot;t&quot;, ylabel=L&quot;L(t)&quot;, width=950, height=300,
+        title=L&quot;(b):$ $ Leading edge comparison&quot;, titlealign=:left,
+        xticks=(0:10:100, [L&quot;%$s&quot; for s in 0:10:100]), yticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]))
+    lines!(ax_leading_edge, pde_sol.t, pde_L, color=:red, linestyle=:dash, linewidth=5, label=L&quot;$ $Learned&quot;)
+    lines!(ax_leading_edge, sol.t, cell_L, color=:black, linewidth=3, label=L&quot;$ $Discrete&quot;)
+    axislegend(position=:rb)
+    xlims!(ax_leading_edge, 0, 100)
+    ylims!(ax_leading_edge, 0, 15)
 
-fig = Figure(fontsize=45, resolution=(2220, 961))
-top_grid = fig[1, 1] = GridLayout(1, 2)
-bottom_grid = fig[2, 1] = GridLayout(1, 3)
-
-ax_pde = Axis(top_grid[1, 1], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x,t)&quot;, width=950, height=300,
-    title=L&quot;(a):$ $ PDE comparison&quot;, titlealign=:left,
-    xticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]), yticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]))
-for (j, i) in enumerate(time_indices)
-    lines!(ax_pde, pde_ξ * pde_L[i], pde_q[:, i], color=colors[j], linestyle=:dash, linewidth=8)
-    lines!(ax_pde, cell_r[i], cell_q[i], color=colors[j], linewidth=4, label=L&quot;%$(t[j])&quot;)
-end
-arrows!(ax_pde, [6.0], [12.0], [4.0], [-3.0], color=:black, linewidth=8, arrowsize=40)
-text!(ax_pde, [8.0], [11.0], text=L&quot;t&quot;, color=:black, fontsize=63)
-xlims!(ax_pde, 0, 15)
-ylims!(ax_pde, 4, 16)
-
-ax_leading_edge = Axis(top_grid[1, 2], xlabel=L&quot;t&quot;, ylabel=L&quot;L(t)&quot;, width=950, height=300,
-    title=L&quot;(b):$ $ Leading edge comparison&quot;, titlealign=:left,
-    xticks=(0:10:100, [L&quot;%$s&quot; for s in 0:10:100]), yticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]))
-lines!(ax_leading_edge, pde_sol.t, pde_L, color=:red, linestyle=:dash, linewidth=5, label=L&quot;$ $Learned&quot;)
-lines!(ax_leading_edge, sol.t, cell_L, color=:black, linewidth=3, label=L&quot;$ $Discrete&quot;)
-axislegend(position=:rb)
-xlims!(ax_leading_edge, 0, 100)
-ylims!(ax_leading_edge, 0, 15)
-
-ax_diffusion = Axis(bottom_grid[1, 1],
-    xlabel=L&quot;q&quot;, ylabel=L&quot;D(q)&quot;, width=600, height=300,
-    title=L&quot;(c): $D(q)$ comparison&quot;, titlealign=:left,
-    xticks=(5:3:12, [L&quot;%$s&quot; for s in 5:3:12]), yticks=(0:5, [L&quot;%$s&quot; for s in 0:5]))
-D_cont_fnc = q -&gt; (k / η) / q^2
-D_cont = D_cont_fnc.(q_range)
-local D_sol
-try
-    D_sol = diffusion_basis.(q_range, Ref(eql_sol.diffusion_theta), Ref(nothing))
-catch e
-    print(e)
-    D_sol = D_cont
-end
-lines!(ax_diffusion, q_range, D_sol, linewidth=6, color=:red, linestyle=:solid, label=L&quot;$ $Learned&quot;)
-lines!(ax_diffusion, q_range, D_cont, linewidth=6, color=:black, linestyle=:dashdot, label=L&quot;$ $Continuum limit&quot;)
-axislegend(position=:rt)
-xlims!(ax_diffusion, 5, 12)
-ylims!(ax_diffusion, 0, 5)
-
-ax_rhs = Axis(bottom_grid[1, 2],
-    xlabel=L&quot;q&quot;, ylabel=L&quot;H(q)&quot;, width=600, height=300,
-    title=L&quot;(d): $H(q)$ comparison&quot;, titlealign=:left,
-    xticks=(5:3:12, [L&quot;%$s&quot; for s in 5:3:12]), yticks=(-100:40:20, [L&quot;%$s&quot; for s in -100:40:20]))
-RHS_cont_fnc = q -&gt; 2q^2 * (1 - s * q)
-RHS_cont = RHS_cont_fnc.(q_range)
-local RHS_sol
-try
-    RHS_sol = rhs_basis.(q_range, Ref(eql_sol.rhs_theta), Ref(nothing))
-catch e
-    print(e)
-    RHS_sol = RHS_cont
-end
-lines!(ax_rhs, q_range, RHS_sol, linewidth=6, color=:red, linestyle=:solid, label=L&quot;$ $Learned&quot;)
-lines!(ax_rhs, q_range, RHS_cont, linewidth=6, color=:black, linestyle=:dashdot, label=L&quot;$ $Continuum limit&quot;)
-axislegend(position=:rt)
-xlims!(ax_rhs, 5, 12)
-ylims!(ax_rhs, -100, 20)
-
-ax_moving_boundary = Axis(bottom_grid[1, 3],
-    xlabel=L&quot;q&quot;, ylabel=L&quot;E(q)&quot;, width=600, height=300,
-    title=L&quot;(e): $E(q)$ comparison&quot;, titlealign=:left,
-    xticks=(5:3:12, [L&quot;%$s&quot; for s in 5:3:12]), yticks=(0:5, [L&quot;%$s&quot; for s in 0:5]))
-MB_cont_fnc = q -&gt; (k / η) / q^2
-MB_cont = MB_cont_fnc.(q_range)
-local MB_sol
-try
-    if !conserve_mass
-        MB_sol = moving_boundary_basis.(q_range, Ref(eql_sol.moving_boundary_theta), Ref(nothing))
-    else
-        MB_sol = moving_boundary_basis.(q_range, Ref(eql_sol.diffusion_theta), Ref(nothing))
+    ax_diffusion = Axis(bottom_grid[1, 1],
+        xlabel=L&quot;q&quot;, ylabel=L&quot;D(q)&quot;, width=600, height=300,
+        title=L&quot;(c): $D(q)$ comparison&quot;, titlealign=:left,
+        xticks=(5:3:12, [L&quot;%$s&quot; for s in 5:3:12]), yticks=(0:5, [L&quot;%$s&quot; for s in 0:5]))
+    D_cont_fnc = q -&gt; (k / η) / q^2
+    D_cont = D_cont_fnc.(q_range)
+    local D_sol
+    try
+        D_sol = diffusion_basis.(q_range, Ref(eql_sol.diffusion_theta), Ref(nothing))
+    catch e
+        print(e)
+        D_sol = D_cont
     end
-catch e
-    print(e)
-    MB_sol = MB_cont
-end
-lines!(ax_moving_boundary, q_range, MB_sol, linewidth=6, color=:red, linestyle=:solid, label=L&quot;$ $Learned&quot;)
-lines!(ax_moving_boundary, q_range, MB_cont, linewidth=6, color=:black, linestyle=:dashdot, label=L&quot;$ $Continuum limit&quot;)
-axislegend(position=:rt)
-xlims!(ax_moving_boundary, 5, 12)
-ylims!(ax_moving_boundary, 0, 5)
-fig</code></pre><p>end;</p><p>fig = plot<em>results(eql</em>sol, sol, k, s, η, diffusion<em>basis, rhs</em>basis, moving<em>boundary</em>basis)</p><p>eql<em>sol = stepwise</em>selection(sol; diffusion<em>basis, rhs</em>basis, moving<em>boundary</em>basis,     mesh<em>points=500, initial=:none, threshold</em>tol=(q=0.35, dL=0.1),     time_range=(0.0, 15.0))</p><p>fig = plot<em>results(eql</em>sol, sol, k, s, η, diffusion<em>basis, rhs</em>basis, moving<em>boundary</em>basis)</p><p>eql<em>sol = stepwise</em>selection(sol; diffusion<em>basis, rhs</em>basis, moving<em>boundary</em>basis,     mesh<em>points=500, initial=:none, threshold</em>tol=(q=0.35, dL=0.1),     time<em>range=(0.0, 15.0), conserve</em>mass=true)</p><p>fig = plot<em>results(eql</em>sol, sol, k, s, η, diffusion<em>basis, rhs</em>basis, moving<em>boundary</em>basis, true) ```</p><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../cs1/">« Case Study 1</a><a class="docs-footer-nextpage" href="../cs3a/">Accurate continuum limit »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Tuesday 22 August 2023 00:29">Tuesday 22 August 2023</span>. Using Julia version 1.9.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+    lines!(ax_diffusion, q_range, D_sol, linewidth=6, color=:red, linestyle=:solid, label=L&quot;$ $Learned&quot;)
+    lines!(ax_diffusion, q_range, D_cont, linewidth=6, color=:black, linestyle=:dashdot, label=L&quot;$ $Continuum limit&quot;)
+    axislegend(position=:rt)
+    xlims!(ax_diffusion, 5, 12)
+    ylims!(ax_diffusion, 0, 5)
+
+    ax_rhs = Axis(bottom_grid[1, 2],
+        xlabel=L&quot;q&quot;, ylabel=L&quot;H(q)&quot;, width=600, height=300,
+        title=L&quot;(d): $H(q)$ comparison&quot;, titlealign=:left,
+        xticks=(5:3:12, [L&quot;%$s&quot; for s in 5:3:12]), yticks=(-100:40:20, [L&quot;%$s&quot; for s in -100:40:20]))
+    RHS_cont_fnc = q -&gt; 2q^2 * (1 - s * q)
+    RHS_cont = RHS_cont_fnc.(q_range)
+    local RHS_sol
+    try
+        RHS_sol = rhs_basis.(q_range, Ref(eql_sol.rhs_theta), Ref(nothing))
+    catch e
+        print(e)
+        RHS_sol = RHS_cont
+    end
+    lines!(ax_rhs, q_range, RHS_sol, linewidth=6, color=:red, linestyle=:solid, label=L&quot;$ $Learned&quot;)
+    lines!(ax_rhs, q_range, RHS_cont, linewidth=6, color=:black, linestyle=:dashdot, label=L&quot;$ $Continuum limit&quot;)
+    axislegend(position=:rt)
+    xlims!(ax_rhs, 5, 12)
+    ylims!(ax_rhs, -100, 20)
+
+    ax_moving_boundary = Axis(bottom_grid[1, 3],
+        xlabel=L&quot;q&quot;, ylabel=L&quot;E(q)&quot;, width=600, height=300,
+        title=L&quot;(e): $E(q)$ comparison&quot;, titlealign=:left,
+        xticks=(5:3:12, [L&quot;%$s&quot; for s in 5:3:12]), yticks=(0:5, [L&quot;%$s&quot; for s in 0:5]))
+    MB_cont_fnc = q -&gt; (k / η) / q^2
+    MB_cont = MB_cont_fnc.(q_range)
+    local MB_sol
+    try
+        if !conserve_mass
+            MB_sol = moving_boundary_basis.(q_range, Ref(eql_sol.moving_boundary_theta), Ref(nothing))
+        else
+            MB_sol = moving_boundary_basis.(q_range, Ref(eql_sol.diffusion_theta), Ref(nothing))
+        end
+    catch e
+        print(e)
+        MB_sol = MB_cont
+    end
+    lines!(ax_moving_boundary, q_range, MB_sol, linewidth=6, color=:red, linestyle=:solid, label=L&quot;$ $Learned&quot;)
+    lines!(ax_moving_boundary, q_range, MB_cont, linewidth=6, color=:black, linestyle=:dashdot, label=L&quot;$ $Continuum limit&quot;)
+    axislegend(position=:rt)
+    xlims!(ax_moving_boundary, 5, 12)
+    ylims!(ax_moving_boundary, 0, 5)
+    fig
+end</code></pre><p>Using this function, we obtain the plot below.</p><pre><code class="language-julia hljs">fig = plot_results(eql_sol, sol, k, s, η, diffusion_basis, rhs_basis, moving_boundary_basis)</code></pre><figure>
+    <img src='figure6.png', alt='Figure 6 from the paper'><br>
+</figure><p>Since the leading edges start to diverge for late time, we need to prune the matrix slightly. We do this as follows, giving our improved results.</p><pre><code class="language-julia hljs">eql_sol = stepwise_selection(sol; diffusion_basis, rhs_basis, moving_boundary_basis,
+    mesh_points=500, initial=:none, threshold_tol=(q=0.35, dL=0.1),
+    time_range=(0.0, 15.0))</code></pre><pre><code class="nohighlight hljs">StepwiseEQL Solution.
+    D(q) = θ₂ᵈ ϕ₂ᵈ(q)
+    H(q) = θ₁ʰ ϕ₁ʰ(q) + θ₂ʰ ϕ₂ʰ(q)
+    E(q) = θ₁ᵉ ϕ₁ᵉ(q)
+┌──────┬───────────────────┬───────────────────────────────┬──────────────────┬────────┐
+│ Step │  θ₁ᵈ    θ₂ᵈ   θ₃ᵈ │  θ₁ʰ    θ₂ʰ   θ₃ʰ   θ₄ʰ   θ₅ʰ │  θ₁ᵉ   θ₂ᵉ   θ₃ᵉ │   Loss │
+├──────┼───────────────────┼───────────────────────────────┼──────────────────┼────────┤
+│    1 │ 0.00   0.00  0.00 │ 0.00   0.00  0.00  0.00  0.00 │ 0.00  0.00  0.00 │  -3.37 │
+│    2 │ 0.00   0.00  0.00 │ 0.00  -0.03  0.00  0.00  0.00 │ 0.00  0.00  0.00 │  -2.37 │
+│    3 │ 0.00   0.00  0.00 │ 0.00  -0.03  0.00  0.00  0.00 │ 9.42  0.00  0.00 │  -3.93 │
+│    4 │ 0.00  47.38  0.00 │ 0.00  -0.03  0.00  0.00  0.00 │ 9.42  0.00  0.00 │  -4.41 │
+│    5 │ 0.00  47.38  0.00 │ 8.41  -1.69  0.00  0.00  0.00 │ 9.42  0.00  0.00 │ -12.23 │
+└──────┴───────────────────┴───────────────────────────────┴──────────────────┴────────┘</code></pre><pre><code class="language-julia hljs">fig = plot_results(eql_sol, sol, k, s, η, diffusion_basis, rhs_basis, moving_boundary_basis)</code></pre><figure>
+    <img src='figure7.png', alt='Figure 7 from the paper'><br>
+</figure><h2 id="Conservation-of-mass"><a class="docs-heading-anchor" href="#Conservation-of-mass">Conservation of mass</a><a id="Conservation-of-mass-1"></a><a class="docs-heading-anchor-permalink" href="#Conservation-of-mass" title="Permalink"></a></h2><p>If we want to enforce conservation of mass, we can set <span>$D(q) = E(q)$</span> by simply using the keyword argument <code>conserve_mass=true</code> as below. These are the results that we describe in more detail in the supplementary material of our paper.</p><pre><code class="language-julia hljs">eql_sol = stepwise_selection(sol; diffusion_basis, rhs_basis, moving_boundary_basis,
+    mesh_points=500, initial=:none, threshold_tol=(q=0.35, dL=0.1),
+    time_range=(0.0, 15.0), conserve_mass=true)</code></pre><pre><code class="nohighlight hljs">StepwiseEQL Solution.
+    D(q) = θ₂ᵈ ϕ₂ᵈ(q)
+    H(q) = θ₂ʰ ϕ₂ʰ(q) + θ₅ʰ ϕ₅ʰ(q)
+┌──────┬───────────────────┬────────────────────────────────┬────────┐
+│ Step │  θ₁ᵈ    θ₂ᵈ   θ₃ᵈ │  θ₁ʰ    θ₂ʰ   θ₃ʰ   θ₄ʰ    θ₅ʰ │   Loss │
+├──────┼───────────────────┼────────────────────────────────┼────────┤
+│    1 │ 0.00   0.00  0.00 │ 0.00   0.00  0.00  0.00   0.00 │  -3.37 │
+│    2 │ 0.00   0.00  0.00 │ 0.00  -0.03  0.00  0.00   0.00 │  -2.37 │
+│    3 │ 0.00  47.41  0.00 │ 0.00  -0.03  0.00  0.00   0.00 │  -3.85 │
+│    4 │ 0.00  47.41  0.00 │ 0.00   0.44  0.00  0.00  -0.00 │ -10.64 │
+└──────┴───────────────────┴────────────────────────────────┴────────┘</code></pre><pre><code class="language-julia hljs">fig = plot_results(eql_sol, sol, k, s, η, diffusion_basis, rhs_basis, moving_boundary_basis, true)</code></pre><figure>
+    <img src='sfigure_conserve.png', alt='Figure S2 from the paper'><br>
+</figure><h2 id="Just-the-code"><a class="docs-heading-anchor" href="#Just-the-code">Just the code</a><a id="Just-the-code-1"></a><a class="docs-heading-anchor-permalink" href="#Just-the-code" title="Permalink"></a></h2><p>An uncommented version of this example is given below. You can view the source code for this file <a href="https://github.com/DanielVandH/StepwiseEQL.jl/tree/main/docs/src/literate_case_studies/cs2.jl">here</a>.</p><pre><code class="language-julia hljs">using StepwiseEQL
+using CairoMakie
+using EpithelialDynamics1D
+using OrdinaryDiffEq
+using Setfield
+using LinearSolve
+
+k, η, s = 50.0, 1.0, 1 / 5
+force_law = (δ, p) -&gt; p.k * (p.s - δ)
+force_law_parameters = (k=k, s=s)
+initial_condition = LinRange(0, 5, 60) |&gt; collect
+prob = CellProblem(;
+    force_law,
+    force_law_parameters,
+    final_time=100.0,
+    damping_constant=η,
+    initial_condition,
+    fix_right=false)
+sol = solve(prob, Tsit5(), saveat=LinRange(0, 100.0, 1000))
+
+diffusion_basis = PolynomialBasis(-1, -3)
+rhs_basis = PolynomialBasis(1, 5)
+moving_boundary_basis = PolynomialBasis(-1, -3)
+
+eql_sol = stepwise_selection(sol; diffusion_basis, rhs_basis, moving_boundary_basis,
+    mesh_points=500, initial=:none, threshold_tol=(q=0.35,))
+
+sol = solve(prob, Tsit5(), saveat=15 // 199)
+eql_sol = stepwise_selection(sol; diffusion_basis, rhs_basis, moving_boundary_basis,
+    mesh_points=500, initial=:none, threshold_tol=(q=0.35,),
+    time_range=(0.0, 15.0))
+
+function plot_results(eql_sol, sol, k, s, η, diffusion_basis, rhs_basis, moving_boundary_basis, conserve_mass=false)
+    t = (0, 5, 10, 25, 50, 100)
+    prob = sol.prob.p
+    prob = @set prob.final_time = 100.0
+    sol = solve(prob, Tsit5(), saveat=[collect(t); LinRange(0, 100, 2500)] |&gt; sort |&gt; unique)
+    time_indices = [findlast(≤(τ), sol.t) for τ in t]
+    colors = (:black, :red, :blue, :green, :orange, :purple, :brown)
+
+    pde = eql_sol.pde
+    pde = @set pde.final_time = 100.0 # need to resolve so that we plot over the complete time interval
+    pde_sol = solve(pde, TRBDF2(linsolve=KLUFactorization()), saveat=sol.t)
+    pde_continuum = deepcopy(pde)
+    pde_continuum.diffusion_parameters.θ .= [0, k / η, 0]
+    pde_continuum.boundary_conditions.rhs.p.θ .= [0, 2.0, -2.0s, 0, 0]
+    pde_continuum.boundary_conditions.moving_boundary.p.θ .= [0, k / η, 0]
+    pde_ξ = pde_continuum.geometry.mesh_points
+    pde_L = pde_sol[end, :]
+    pde_q = pde_sol[begin:(end-1), :]
+    cell_q = node_densities.(sol.u)
+    cell_r = sol.u
+    cell_L = sol[end, :]
+
+    q_range = LinRange(5, 12, 250)
+
+    fig = Figure(fontsize=45, resolution=(2220, 961))
+    top_grid = fig[1, 1] = GridLayout(1, 2)
+    bottom_grid = fig[2, 1] = GridLayout(1, 3)
+
+    ax_pde = Axis(top_grid[1, 1], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x,t)&quot;, width=950, height=300,
+        title=L&quot;(a):$ $ PDE comparison&quot;, titlealign=:left,
+        xticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]), yticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]))
+    for (j, i) in enumerate(time_indices)
+        lines!(ax_pde, pde_ξ * pde_L[i], pde_q[:, i], color=colors[j], linestyle=:dash, linewidth=8)
+        lines!(ax_pde, cell_r[i], cell_q[i], color=colors[j], linewidth=4, label=L&quot;%$(t[j])&quot;)
+    end
+    arrows!(ax_pde, [6.0], [12.0], [4.0], [-3.0], color=:black, linewidth=8, arrowsize=40)
+    text!(ax_pde, [8.0], [11.0], text=L&quot;t&quot;, color=:black, fontsize=63)
+    xlims!(ax_pde, 0, 15)
+    ylims!(ax_pde, 4, 16)
+
+    ax_leading_edge = Axis(top_grid[1, 2], xlabel=L&quot;t&quot;, ylabel=L&quot;L(t)&quot;, width=950, height=300,
+        title=L&quot;(b):$ $ Leading edge comparison&quot;, titlealign=:left,
+        xticks=(0:10:100, [L&quot;%$s&quot; for s in 0:10:100]), yticks=(0:5:15, [L&quot;%$s&quot; for s in 0:5:15]))
+    lines!(ax_leading_edge, pde_sol.t, pde_L, color=:red, linestyle=:dash, linewidth=5, label=L&quot;$ $Learned&quot;)
+    lines!(ax_leading_edge, sol.t, cell_L, color=:black, linewidth=3, label=L&quot;$ $Discrete&quot;)
+    axislegend(position=:rb)
+    xlims!(ax_leading_edge, 0, 100)
+    ylims!(ax_leading_edge, 0, 15)
+
+    ax_diffusion = Axis(bottom_grid[1, 1],
+        xlabel=L&quot;q&quot;, ylabel=L&quot;D(q)&quot;, width=600, height=300,
+        title=L&quot;(c): $D(q)$ comparison&quot;, titlealign=:left,
+        xticks=(5:3:12, [L&quot;%$s&quot; for s in 5:3:12]), yticks=(0:5, [L&quot;%$s&quot; for s in 0:5]))
+    D_cont_fnc = q -&gt; (k / η) / q^2
+    D_cont = D_cont_fnc.(q_range)
+    local D_sol
+    try
+        D_sol = diffusion_basis.(q_range, Ref(eql_sol.diffusion_theta), Ref(nothing))
+    catch e
+        print(e)
+        D_sol = D_cont
+    end
+    lines!(ax_diffusion, q_range, D_sol, linewidth=6, color=:red, linestyle=:solid, label=L&quot;$ $Learned&quot;)
+    lines!(ax_diffusion, q_range, D_cont, linewidth=6, color=:black, linestyle=:dashdot, label=L&quot;$ $Continuum limit&quot;)
+    axislegend(position=:rt)
+    xlims!(ax_diffusion, 5, 12)
+    ylims!(ax_diffusion, 0, 5)
+
+    ax_rhs = Axis(bottom_grid[1, 2],
+        xlabel=L&quot;q&quot;, ylabel=L&quot;H(q)&quot;, width=600, height=300,
+        title=L&quot;(d): $H(q)$ comparison&quot;, titlealign=:left,
+        xticks=(5:3:12, [L&quot;%$s&quot; for s in 5:3:12]), yticks=(-100:40:20, [L&quot;%$s&quot; for s in -100:40:20]))
+    RHS_cont_fnc = q -&gt; 2q^2 * (1 - s * q)
+    RHS_cont = RHS_cont_fnc.(q_range)
+    local RHS_sol
+    try
+        RHS_sol = rhs_basis.(q_range, Ref(eql_sol.rhs_theta), Ref(nothing))
+    catch e
+        print(e)
+        RHS_sol = RHS_cont
+    end
+    lines!(ax_rhs, q_range, RHS_sol, linewidth=6, color=:red, linestyle=:solid, label=L&quot;$ $Learned&quot;)
+    lines!(ax_rhs, q_range, RHS_cont, linewidth=6, color=:black, linestyle=:dashdot, label=L&quot;$ $Continuum limit&quot;)
+    axislegend(position=:rt)
+    xlims!(ax_rhs, 5, 12)
+    ylims!(ax_rhs, -100, 20)
+
+    ax_moving_boundary = Axis(bottom_grid[1, 3],
+        xlabel=L&quot;q&quot;, ylabel=L&quot;E(q)&quot;, width=600, height=300,
+        title=L&quot;(e): $E(q)$ comparison&quot;, titlealign=:left,
+        xticks=(5:3:12, [L&quot;%$s&quot; for s in 5:3:12]), yticks=(0:5, [L&quot;%$s&quot; for s in 0:5]))
+    MB_cont_fnc = q -&gt; (k / η) / q^2
+    MB_cont = MB_cont_fnc.(q_range)
+    local MB_sol
+    try
+        if !conserve_mass
+            MB_sol = moving_boundary_basis.(q_range, Ref(eql_sol.moving_boundary_theta), Ref(nothing))
+        else
+            MB_sol = moving_boundary_basis.(q_range, Ref(eql_sol.diffusion_theta), Ref(nothing))
+        end
+    catch e
+        print(e)
+        MB_sol = MB_cont
+    end
+    lines!(ax_moving_boundary, q_range, MB_sol, linewidth=6, color=:red, linestyle=:solid, label=L&quot;$ $Learned&quot;)
+    lines!(ax_moving_boundary, q_range, MB_cont, linewidth=6, color=:black, linestyle=:dashdot, label=L&quot;$ $Continuum limit&quot;)
+    axislegend(position=:rt)
+    xlims!(ax_moving_boundary, 5, 12)
+    ylims!(ax_moving_boundary, 0, 5)
+    fig
+end;
+
+fig = plot_results(eql_sol, sol, k, s, η, diffusion_basis, rhs_basis, moving_boundary_basis)
+
+eql_sol = stepwise_selection(sol; diffusion_basis, rhs_basis, moving_boundary_basis,
+    mesh_points=500, initial=:none, threshold_tol=(q=0.35, dL=0.1),
+    time_range=(0.0, 15.0))
+
+fig = plot_results(eql_sol, sol, k, s, η, diffusion_basis, rhs_basis, moving_boundary_basis)
+
+eql_sol = stepwise_selection(sol; diffusion_basis, rhs_basis, moving_boundary_basis,
+    mesh_points=500, initial=:none, threshold_tol=(q=0.35, dL=0.1),
+    time_range=(0.0, 15.0), conserve_mass=true)
+
+fig = plot_results(eql_sol, sol, k, s, η, diffusion_basis, rhs_basis, moving_boundary_basis, true)</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../cs1/">« Case Study 1</a><a class="docs-footer-nextpage" href="../cs3a/">Accurate continuum limit »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Tuesday 22 August 2023 00:39">Tuesday 22 August 2023</span>. Using Julia version 1.9.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

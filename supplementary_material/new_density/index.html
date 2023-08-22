@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Discrete Densities at the Boundaries · StepwiseEQL.jl</title><script data-outdated-warner src="../../assets/warner.js"></script><link rel="canonical" href="https://DanielVandH.github.io/StepwiseEQL.jl/supplementary_material/new_density/"/><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">StepwiseEQL.jl</a></span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><a class="tocitem" href="../../installation/">Installation</a></li><li><a class="tocitem" href="../../repository_structure/">Repository Structure</a></li><li><a class="tocitem" href="../../algorithm/">The Algorithm</a></li><li><input class="collapse-toggle" id="menuitem-5" type="checkbox" checked/><label class="tocitem" for="menuitem-5"><span class="docs-label">Paper Results</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../overview/">Overview</a></li><li><a class="tocitem" href="../../case_studies/figure_2/">Reproducing Figure 2</a></li><li><a class="tocitem" href="../../case_studies/figure_3/">Reproducing Figure 3</a></li><li><a class="tocitem" href="../../case_studies/cs1/">Case Study 1</a></li><li><a class="tocitem" href="../../case_studies/cs2/">Case Study 2</a></li><li><input class="collapse-toggle" id="menuitem-5-6" type="checkbox"/><label class="tocitem" for="menuitem-5-6"><span class="docs-label">Case Study 3</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../case_studies/cs3a/">Accurate continuum limit</a></li><li><a class="tocitem" href="../../case_studies/cs3b/">Inaccurate continuum limit</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-7" type="checkbox"/><label class="tocitem" for="menuitem-5-7"><span class="docs-label">Case Study 4</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../case_studies/cs4a/">Accurate continuum limit</a></li><li><a class="tocitem" href="../../case_studies/cs4b/">Inaccurate continuum limit</a></li></ul></li><li class="is-active"><a class="tocitem" href>Discrete Densities at the Boundaries</a></li><li><a class="tocitem" href="../piecewise_prof/">A Piecewise Proliferation Law</a></li><li><a class="tocitem" href="../linear_diffusion/">Linear Diffusion</a></li><li><a class="tocitem" href="../parameter_sensitivity/">Parameter Sensitivity Study</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Paper Results</a></li><li class="is-active"><a href>Discrete Densities at the Boundaries</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Discrete Densities at the Boundaries</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/DanielVandH/StepwiseEQL.jl/tree/main/docs/src/literate_supplementary_material/new_density.jl" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><div class="admonition is-success"><header class="admonition-header">Tip</header><div class="admonition-body"><p>This example is also available as a Jupyter notebook: <a href="https://github.com/DanielVandH/StepwiseEQL.jl/tree/main/docs/src/supplementary_material/notebooks/new_density.ipynb"><code>new_density.ipynb</code></a></p></div></div><h1 id="Discrete-Densities-at-the-Boundaries"><a class="docs-heading-anchor" href="#Discrete-Densities-at-the-Boundaries">Discrete Densities at the Boundaries</a><a id="Discrete-Densities-at-the-Boundaries-1"></a><a class="docs-heading-anchor-permalink" href="#Discrete-Densities-at-the-Boundaries" title="Permalink"></a></h1><p>In this section, we show how we obtained the figures in the paper that motivate the need for our new definition of density at the boundary. We recall that we defined</p><p class="math-container">\[\begin{align*}
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Discrete Densities at the Boundaries · StepwiseEQL.jl</title><script data-outdated-warner src="../../assets/warner.js"></script><link rel="canonical" href="https://DanielVandH.github.io/StepwiseEQL.jl/supplementary_material/new_density/"/><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">StepwiseEQL.jl</a></span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><a class="tocitem" href="../../installation/">Installation</a></li><li><a class="tocitem" href="../../repository_structure/">Repository Structure</a></li><li><a class="tocitem" href="../../algorithm/">The Algorithm</a></li><li><input class="collapse-toggle" id="menuitem-5" type="checkbox" checked/><label class="tocitem" for="menuitem-5"><span class="docs-label">Paper Results</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../overview/">Overview</a></li><li><a class="tocitem" href="../../case_studies/figure_2/">Reproducing Figure 2</a></li><li><a class="tocitem" href="../../case_studies/figure_3/">Reproducing Figure 3</a></li><li><a class="tocitem" href="../../case_studies/cs1/">Case Study 1</a></li><li><a class="tocitem" href="../../case_studies/cs2/">Case Study 2</a></li><li><input class="collapse-toggle" id="menuitem-5-6" type="checkbox"/><label class="tocitem" for="menuitem-5-6"><span class="docs-label">Case Study 3</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../case_studies/cs3a/">Accurate continuum limit</a></li><li><a class="tocitem" href="../../case_studies/cs3b/">Inaccurate continuum limit</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5-7" type="checkbox"/><label class="tocitem" for="menuitem-5-7"><span class="docs-label">Case Study 4</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../case_studies/cs4a/">Accurate continuum limit</a></li><li><a class="tocitem" href="../../case_studies/cs4b/">Inaccurate continuum limit</a></li></ul></li><li class="is-active"><a class="tocitem" href>Discrete Densities at the Boundaries</a><ul class="internal"><li><a class="tocitem" href="#Just-the-code"><span>Just the code</span></a></li></ul></li><li><a class="tocitem" href="../piecewise_prof/">A Piecewise Proliferation Law</a></li><li><a class="tocitem" href="../linear_diffusion/">Linear Diffusion</a></li><li><a class="tocitem" href="../parameter_sensitivity/">Parameter Sensitivity Study</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Paper Results</a></li><li class="is-active"><a href>Discrete Densities at the Boundaries</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Discrete Densities at the Boundaries</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/DanielVandH/StepwiseEQL.jl/tree/main/docs/src/literate_supplementary_material/new_density.jl" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><div class="admonition is-success"><header class="admonition-header">Tip</header><div class="admonition-body"><p>This example is also available as a Jupyter notebook: <a href="https://github.com/DanielVandH/StepwiseEQL.jl/tree/main/docs/src/supplementary_material/notebooks/new_density.ipynb"><code>new_density.ipynb</code></a></p></div></div><h1 id="Discrete-Densities-at-the-Boundaries"><a class="docs-heading-anchor" href="#Discrete-Densities-at-the-Boundaries">Discrete Densities at the Boundaries</a><a id="Discrete-Densities-at-the-Boundaries-1"></a><a class="docs-heading-anchor-permalink" href="#Discrete-Densities-at-the-Boundaries" title="Permalink"></a></h1><p>In this section, we show how we obtained the figures in the paper that motivate the need for our new definition of density at the boundary. We recall that we defined</p><p class="math-container">\[\begin{align*}
 q_1(t) &amp;= \frac{2}{x_2(t) - x_1(t)} - \frac{2}{x_3(t) - x_1(t)}, \\
 q_n(t) &amp;= \frac{2}{x_n(t) - x_{n-1}(t)} - \frac{2}{x_n(t) - x_{n-2}(t)},
 \end{align*}\]</p><p>modifying the previous definitions <span>$q_1(t) = 1/x_2(t)$</span> and <span>$q_n(t) = 1/(x_n(t) - x_{n-1}(t))$</span>.</p><p>To start, let us load in the packages we will need.</p><pre><code class="language-julia hljs">using StepwiseEQL
@@ -42,19 +42,155 @@ u: 501-element Vector{Vector{Float64}}:
  [5.2225071190676555, 5.222507107636834, 5.22250707334437, 5.22250701619027, 5.222506936174542, 5.222506833297196, 5.222506707558247, 5.222506558957714, 5.222506387495615, 5.222506193171979  …  5.006205275518905, 5.00614107114595, 5.006076868698485, 5.006012668182211, 5.0059484696028385, 5.005884272966066, 5.005820078277598, 5.005755885543136, 5.005691694768377, 5.639095864107762]
  [5.22184873206438, 5.221848720669727, 5.2218486864857665, 5.221848629512506, 5.221848549749951, 5.221848447198115, 5.221848321857011, 5.221848173726659, 5.221848002807076, 5.221847809098291  …  5.006188207936062, 5.006124180483525, 5.006060154940927, 5.0059961313139505, 5.005932109608278, 5.005868089829588, 5.005804071983562, 5.005740056075877, 5.00567604211221, 5.639550474565784]
  [5.221192591559284, 5.221192580200655, 5.22119254612477, 5.221192489331633, 5.2211924098212545, 5.221192307593643, 5.2211921826488155, 5.221192034986788, 5.22119186460758, 5.221191671511219  …  5.0061711520945495, 5.006107300909339, 5.006043451618299, 5.005979604227087, 5.005915758741366, 5.005851915166788, 5.005788073509013, 5.005724233773695, 5.005660395966485, 5.64000372631041]
- [5.2205386932976285, 5.220538681974883, 5.220538648006646, 5.220538591392923, 5.220538512133723, 5.220538410229056, 5.220538285678937, 5.220538138483384, 5.220537968642416, 5.22053777615606  …  5.006154106765068, 5.006090431192137, 5.0060267574973825, 5.005963085686441, 5.005899415764949, 5.005835747738538, 5.00577208161284, 5.005708417393488, 5.005644755086109, 5.640455621425953]
- ```
+ [5.2205386932976285, 5.220538681974883, 5.220538648006646, 5.220538591392923, 5.220538512133723, 5.220538410229056, 5.220538285678937, 5.220538138483384, 5.220537968642416, 5.22053777615606  …  5.006154106765068, 5.006090431192137, 5.0060267574973825, 5.005963085686441, 5.005899415764949, 5.005835747738538, 5.00577208161284, 5.005708417393488, 5.005644755086109, 5.640455621425953]</code></pre><p>Next, we need to get the data for the densities at <span>$t=2$</span>, as well as the derivatives. The densities are obtained below.</p><pre><code class="language-julia hljs">t_idx = findlast(≤(2), sol.t)
+new_densities = node_densities(sol.u[t_idx])
+baker_densities = copy(new_densities)
+baker_densities[begin] = 1 / (sol.u[t_idx][2] - sol.u[t_idx][1])
+baker_densities[end] = 1 / (sol.u[t_idx][end] - sol.u[t_idx][end-1])</code></pre><pre><code class="nohighlight hljs">5.041919353189308</code></pre><p>To now set up the derivatives, we need the <span>$(x, t)$</span> data.</p><pre><code class="language-julia hljs">pde_L = pde_sol.u[t_idx][end]
+pde_q = pde_sol.u[t_idx][begin:(end-1)]
+pde_x = pde_prob.geometry.mesh_points * pde_L</code></pre><pre><code class="nohighlight hljs">5000-element Vector{Float64}:
+ 0.0
+ 0.0010598254070783829
+ 0.0021196508141567657
+ 0.0031794762212351488
+ 0.004239301628313531
+ ⋮
+ 5.294887733763601
+ 5.2959475591706795
+ 5.297007384577758
+ 5.298067209984836</code></pre><p>Next, we compute all the data.</p><pre><code class="language-julia hljs">new_dx = zeros(length(sol))
+baker_dx = zeros(length(sol))
+continuum_dx = zeros(length(sol))
+for j in eachindex(sol)
+    new_dx[j] = StepwiseEQL.cell_∂q∂x(sol, length(sol.u[j]), j)
+    qₙ₋₂ = StepwiseEQL.cell_density(sol, length(sol.u[j]) - 2, j)
+    qₙ₋₁ = StepwiseEQL.cell_density(sol, length(sol.u[j]) - 1, j)
+    qₙ = 1 / (sol.u[j][end] - sol.u[j][end-1])
+    xₙ₋₂ = sol.u[j][end-2]
+    xₙ₋₁ = sol.u[j][end-1]
+    xₙ = sol.u[j][end]
+    baker_dx[j] = StepwiseEQL.backward_dfdx(qₙ₋₂, qₙ₋₁, qₙ, xₙ₋₂, xₙ₋₁, xₙ)
+    baker_dx[j] = (qₙ - qₙ₋₁) / (xₙ - xₙ₋₁)
+    u = pde_sol.u[j][end-1]
+    continuum_dx[j] = 2u^2 * (1 - u * s)
+end</code></pre><p>Finally, we can plot the comparisons.</p><pre><code class="language-julia hljs">fig = Figure(fontsize=43, resolution=(1580, 950))
+ax = Axis(fig[1, 1], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x,t)&quot;,
+    width=600, height=300,
+    xticks=(0:6, [L&quot;%$s&quot; for s in 0:6]),
+    yticks=(5:0.2:5.8, [L&quot;%$s&quot; for s in 5:0.2:5.8]),
+    title=L&quot;(a):$ $ Complete view&quot;,
+    titlealign=:left)
+lines!(ax, sol.u[t_idx], new_densities, linewidth=3, color=:red, label=L&quot;$ $New&quot;)
+lines!(ax, sol.u[t_idx], baker_densities, linewidth=3, color=:blue, label=L&quot;$ $Baker&quot;)
+lines!(ax, pde_x, pde_q, linewidth=3, color=:black, label=L&quot;$ $Continuum limit&quot;)
+ax = Axis(fig[1, 2], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x,t)&quot;,
+    width=600, height=300,
+    title=L&quot;(b):$ $ Zoomed in view&quot;,
+    xticks=(5:0.1:5.3, [L&quot;%$s&quot; for s in 5:0.1:5.3]),
+    yticks=(5:0.05:5.1, [L&quot;%$s&quot; for s in 5:0.05:5.1]),
+    titlealign=:left)
+lines!(ax, sol.u[t_idx], new_densities, linewidth=3, color=:red, label=L&quot;$ $New&quot;)
+lines!(ax, sol.u[t_idx], baker_densities, linewidth=3, color=:blue, label=L&quot;$ $Baker&quot;)
+lines!(ax, pde_x, pde_q, linewidth=3, color=:black, label=L&quot;$ $Continuum limit&quot;)
+xlims!(ax, 5, 5.3)
+ylims!(ax, 5, 5.1)
+ax = Axis(fig[2, 1:2],
+    xlabel=L&quot;t&quot;, ylabel=L&quot;\partial q/\partial x&quot;,
+    title=L&quot;(c):$ $ Derivative comparisons&quot;,
+    titlealign=:left,
+    xticks=(0:2:10, [L&quot;%$s&quot; for s in 0:2:10]),
+    yticks=(-1.5:0.5:0, [L&quot;%$s&quot; for s in -1.5:0.5:0]),
+    width=1350,
+    height=300)
+lines!(ax, sol.t[2:end], new_dx[2:end], linewidth=3, color=:red, label=L&quot;$ $New&quot;)
+lines!(ax, sol.t[2:end], baker_dx[2:end], linewidth=3, color=:blue, label=L&quot;$ $Baker&quot;)
+lines!(ax, sol.t[2:end], continuum_dx[2:end], linewidth=3, color=:black, label=L&quot;$ $Continuum limit&quot;)
+xlims!(ax, 0, 10)
+ylims!(ax, -1.5, 0.2)
+axislegend(ax, position=:rb)
+fig</code></pre><figure>
+    <img src='sfigure_boundary_density.png', alt='Figure S1 from the paper'><br>
+</figure><h2 id="Just-the-code"><a class="docs-heading-anchor" href="#Just-the-code">Just the code</a><a id="Just-the-code-1"></a><a class="docs-heading-anchor-permalink" href="#Just-the-code" title="Permalink"></a></h2><p>An uncommented version of this example is given below. You can view the source code for this file <a href="https://github.com/DanielVandH/StepwiseEQL.jl/tree/main/docs/src/literate_supplementary_material/new_density.jl">here</a>.</p><pre><code class="language-julia hljs">using StepwiseEQL
+using CairoMakie
+using EpithelialDynamics1D
+using OrdinaryDiffEq
+using LinearSolve
 
-Next, we need to get the data for the densities at $t=2$,
-as well as the derivatives. The densities are obtained below.
-</code></pre><p>julia t<em>idx = findlast(≤(2), sol.t) new</em>densities = node<em>densities(sol.u[t</em>idx]) baker<em>densities = copy(new</em>densities) baker<em>densities[begin] = 1 / (sol.u[t</em>idx][2] - sol.u[t<em>idx][1]) baker</em>densities[end] = 1 / (sol.u[t<em>idx][end] - sol.u[t</em>idx][end-1])</p><pre><code class="nohighlight hljs"></code></pre><p>5.041919353189308</p><pre><code class="nohighlight hljs">
-To now set up the derivatives, we need the $(x, t)$ data.
-</code></pre><p>julia pde<em>L = pde</em>sol.u[t<em>idx][end] pde</em>q = pde<em>sol.u[t</em>idx][begin:(end-1)] pde<em>x = pde</em>prob.geometry.mesh<em>points * pde</em>L</p><pre><code class="nohighlight hljs"></code></pre><p>5000-element Vector{Float64}:  0.0  0.0010598254070783829  0.0021196508141567657  0.0031794762212351488  0.004239301628313531  ⋮  5.294887733763601  5.2959475591706795  5.297007384577758  5.298067209984836</p><pre><code class="nohighlight hljs">
-Next, we compute all the data.
-</code></pre><p>julia new<em>dx = zeros(length(sol)) baker</em>dx = zeros(length(sol)) continuum<em>dx = zeros(length(sol)) for j in eachindex(sol)     new</em>dx[j] = StepwiseEQL.cell<em>∂q∂x(sol, length(sol.u[j]), j)     qₙ₋₂ = StepwiseEQL.cell</em>density(sol, length(sol.u[j]) - 2, j)     qₙ₋₁ = StepwiseEQL.cell<em>density(sol, length(sol.u[j]) - 1, j)     qₙ = 1 / (sol.u[j][end] - sol.u[j][end-1])     xₙ₋₂ = sol.u[j][end-2]     xₙ₋₁ = sol.u[j][end-1]     xₙ = sol.u[j][end]     baker</em>dx[j] = StepwiseEQL.backward<em>dfdx(qₙ₋₂, qₙ₋₁, qₙ, xₙ₋₂, xₙ₋₁, xₙ)     baker</em>dx[j] = (qₙ - qₙ₋₁) / (xₙ - xₙ₋₁)     u = pde<em>sol.u[j][end-1]     continuum</em>dx[j] = 2u^2 * (1 - u * s) end</p><pre><code class="nohighlight hljs">
-Finally, we can plot the comparisons.
-</code></pre><p>julia fig = Figure(fontsize=43, resolution=(1580, 950)) ax = Axis(fig[1, 1], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x,t)&quot;,     width=600, height=300,     xticks=(0:6, [L&quot;%<span>$s&quot; for s in 0:6]),     yticks=(5:0.2:5.8, [L&quot;%$</span>s&quot; for s in 5:0.2:5.8]),     title=L&quot;(a):$ $ Complete view&quot;,     titlealign=:left) lines!(ax, sol.u[t<em>idx], new</em>densities, linewidth=3, color=:red, label=L&quot;$ <span>$New&quot;) lines!(ax, sol.u[t_idx], baker_densities, linewidth=3, color=:blue, label=L&quot;$</span> <span>$Baker&quot;) lines!(ax, pde_x, pde_q, linewidth=3, color=:black, label=L&quot;$</span> <span>$Continuum limit&quot;) ax = Axis(fig[1, 2], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x,t)&quot;,     width=600, height=300,     title=L&quot;(b):$</span> $ Zoomed in view&quot;,     xticks=(5:0.1:5.3, [L&quot;%<span>$s&quot; for s in 5:0.1:5.3]),     yticks=(5:0.05:5.1, [L&quot;%$</span>s&quot; for s in 5:0.05:5.1]),     titlealign=:left) lines!(ax, sol.u[t<em>idx], new</em>densities, linewidth=3, color=:red, label=L&quot;$ <span>$New&quot;) lines!(ax, sol.u[t_idx], baker_densities, linewidth=3, color=:blue, label=L&quot;$</span> <span>$Baker&quot;) lines!(ax, pde_x, pde_q, linewidth=3, color=:black, label=L&quot;$</span> <span>$Continuum limit&quot;) xlims!(ax, 5, 5.3) ylims!(ax, 5, 5.1) ax = Axis(fig[2, 1:2],     xlabel=L&quot;t&quot;, ylabel=L&quot;\partial q/\partial x&quot;,     title=L&quot;(c):$</span> $ Derivative comparisons&quot;,     titlealign=:left,     xticks=(0:2:10, [L&quot;%<span>$s&quot; for s in 0:2:10]),     yticks=(-1.5:0.5:0, [L&quot;%$</span>s&quot; for s in -1.5:0.5:0]),     width=1350,     height=300) lines!(ax, sol.t[2:end], new<em>dx[2:end], linewidth=3, color=:red, label=L&quot;$ New&quot;) lines!(ax, sol.t[2:end], baker</em>dx[2:end], linewidth=3, color=:blue, label=L&quot;$ <span>$Baker&quot;) lines!(ax, sol.t[2:end], continuum_dx[2:end], linewidth=3, color=:black, label=L&quot;$</span> Continuum limit&quot;) xlims!(ax, 0, 10) ylims!(ax, -1.5, 0.2) axislegend(ax, position=:rb) fig</p><pre><code class="nohighlight hljs"></code></pre><p>@raw html &lt;figure&gt;     &lt;img src=&#39;sfigure<em>boundary</em>density.png&#39;, alt=&#39;Figure S1 from the paper&#39;&gt;&lt;br&gt; &lt;/figure&gt;</p><pre><code class="nohighlight hljs">
-## Just the code
-An uncommented version of this example is given below.
-You can view the source code for this file [here](https://github.com/DanielVandH/StepwiseEQL.jl/tree/main/docs/src/literate_supplementary_material/new_density.jl).
-</code></pre><p>julia using StepwiseEQL using CairoMakie using EpithelialDynamics1D using OrdinaryDiffEq using LinearSolve</p><p>force<em>law = (δ, p) -&gt; p.k * (p.s - δ) k, s, η, T = 50.0, 0.2, 1.0, 10.0 force</em>law<em>parameters = (k=k, s=s) initial</em>condition = collect(LinRange(0, 5, 30)) prob = CellProblem(;     force<em>law,     force</em>law<em>parameters,     final</em>time=T,     damping<em>constant=η,     initial</em>condition,     fix<em>right=false) sol = solve(prob, Tsit5(), saveat=0.02) pde</em>prob = continuum<em>limit(prob, 5000, proliferation=false) pde</em>sol = solve(pde_prob, TRBDF2(linsolve=KLUFactorization()), saveat=sol.t)</p><p>t<em>idx = findlast(≤(2), sol.t) new</em>densities = node<em>densities(sol.u[t</em>idx]) baker<em>densities = copy(new</em>densities) baker<em>densities[begin] = 1 / (sol.u[t</em>idx][2] - sol.u[t<em>idx][1]) baker</em>densities[end] = 1 / (sol.u[t<em>idx][end] - sol.u[t</em>idx][end-1])</p><p>pde<em>L = pde</em>sol.u[t<em>idx][end] pde</em>q = pde<em>sol.u[t</em>idx][begin:(end-1)] pde<em>x = pde</em>prob.geometry.mesh<em>points * pde</em>L</p><p>new<em>dx = zeros(length(sol)) baker</em>dx = zeros(length(sol)) continuum<em>dx = zeros(length(sol)) for j in eachindex(sol)     new</em>dx[j] = StepwiseEQL.cell<em>∂q∂x(sol, length(sol.u[j]), j)     qₙ₋₂ = StepwiseEQL.cell</em>density(sol, length(sol.u[j]) - 2, j)     qₙ₋₁ = StepwiseEQL.cell<em>density(sol, length(sol.u[j]) - 1, j)     qₙ = 1 / (sol.u[j][end] - sol.u[j][end-1])     xₙ₋₂ = sol.u[j][end-2]     xₙ₋₁ = sol.u[j][end-1]     xₙ = sol.u[j][end]     baker</em>dx[j] = StepwiseEQL.backward<em>dfdx(qₙ₋₂, qₙ₋₁, qₙ, xₙ₋₂, xₙ₋₁, xₙ)     baker</em>dx[j] = (qₙ - qₙ₋₁) / (xₙ - xₙ₋₁)     u = pde<em>sol.u[j][end-1]     continuum</em>dx[j] = 2u^2 * (1 - u * s) end</p><p>fig = Figure(fontsize=43, resolution=(1580, 950)) ax = Axis(fig[1, 1], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x,t)&quot;,     width=600, height=300,     xticks=(0:6, [L&quot;%<span>$s&quot; for s in 0:6]),     yticks=(5:0.2:5.8, [L&quot;%$</span>s&quot; for s in 5:0.2:5.8]),     title=L&quot;(a):$ $ Complete view&quot;,     titlealign=:left) lines!(ax, sol.u[t<em>idx], new</em>densities, linewidth=3, color=:red, label=L&quot;$ <span>$New&quot;) lines!(ax, sol.u[t_idx], baker_densities, linewidth=3, color=:blue, label=L&quot;$</span> <span>$Baker&quot;) lines!(ax, pde_x, pde_q, linewidth=3, color=:black, label=L&quot;$</span> <span>$Continuum limit&quot;) ax = Axis(fig[1, 2], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x,t)&quot;,     width=600, height=300,     title=L&quot;(b):$</span> $ Zoomed in view&quot;,     xticks=(5:0.1:5.3, [L&quot;%<span>$s&quot; for s in 5:0.1:5.3]),     yticks=(5:0.05:5.1, [L&quot;%$</span>s&quot; for s in 5:0.05:5.1]),     titlealign=:left) lines!(ax, sol.u[t<em>idx], new</em>densities, linewidth=3, color=:red, label=L&quot;$ <span>$New&quot;) lines!(ax, sol.u[t_idx], baker_densities, linewidth=3, color=:blue, label=L&quot;$</span> <span>$Baker&quot;) lines!(ax, pde_x, pde_q, linewidth=3, color=:black, label=L&quot;$</span> <span>$Continuum limit&quot;) xlims!(ax, 5, 5.3) ylims!(ax, 5, 5.1) ax = Axis(fig[2, 1:2],     xlabel=L&quot;t&quot;, ylabel=L&quot;\partial q/\partial x&quot;,     title=L&quot;(c):$</span> $ Derivative comparisons&quot;,     titlealign=:left,     xticks=(0:2:10, [L&quot;%<span>$s&quot; for s in 0:2:10]),     yticks=(-1.5:0.5:0, [L&quot;%$</span>s&quot; for s in -1.5:0.5:0]),     width=1350,     height=300) lines!(ax, sol.t[2:end], new<em>dx[2:end], linewidth=3, color=:red, label=L&quot;$ New&quot;) lines!(ax, sol.t[2:end], baker</em>dx[2:end], linewidth=3, color=:blue, label=L&quot;$ <span>$Baker&quot;) lines!(ax, sol.t[2:end], continuum_dx[2:end], linewidth=3, color=:black, label=L&quot;$</span> Continuum limit&quot;) xlims!(ax, 0, 10) ylims!(ax, -1.5, 0.2) axislegend(ax, position=:rb) fig ```</p><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../case_studies/cs4b/">« Inaccurate continuum limit</a><a class="docs-footer-nextpage" href="../piecewise_prof/">A Piecewise Proliferation Law »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Tuesday 22 August 2023 00:29">Tuesday 22 August 2023</span>. Using Julia version 1.9.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+force_law = (δ, p) -&gt; p.k * (p.s - δ)
+k, s, η, T = 50.0, 0.2, 1.0, 10.0
+force_law_parameters = (k=k, s=s)
+initial_condition = collect(LinRange(0, 5, 30))
+prob = CellProblem(;
+    force_law,
+    force_law_parameters,
+    final_time=T,
+    damping_constant=η,
+    initial_condition,
+    fix_right=false)
+sol = solve(prob, Tsit5(), saveat=0.02)
+pde_prob = continuum_limit(prob, 5000, proliferation=false)
+pde_sol = solve(pde_prob, TRBDF2(linsolve=KLUFactorization()), saveat=sol.t)
+
+t_idx = findlast(≤(2), sol.t)
+new_densities = node_densities(sol.u[t_idx])
+baker_densities = copy(new_densities)
+baker_densities[begin] = 1 / (sol.u[t_idx][2] - sol.u[t_idx][1])
+baker_densities[end] = 1 / (sol.u[t_idx][end] - sol.u[t_idx][end-1])
+
+pde_L = pde_sol.u[t_idx][end]
+pde_q = pde_sol.u[t_idx][begin:(end-1)]
+pde_x = pde_prob.geometry.mesh_points * pde_L
+
+new_dx = zeros(length(sol))
+baker_dx = zeros(length(sol))
+continuum_dx = zeros(length(sol))
+for j in eachindex(sol)
+    new_dx[j] = StepwiseEQL.cell_∂q∂x(sol, length(sol.u[j]), j)
+    qₙ₋₂ = StepwiseEQL.cell_density(sol, length(sol.u[j]) - 2, j)
+    qₙ₋₁ = StepwiseEQL.cell_density(sol, length(sol.u[j]) - 1, j)
+    qₙ = 1 / (sol.u[j][end] - sol.u[j][end-1])
+    xₙ₋₂ = sol.u[j][end-2]
+    xₙ₋₁ = sol.u[j][end-1]
+    xₙ = sol.u[j][end]
+    baker_dx[j] = StepwiseEQL.backward_dfdx(qₙ₋₂, qₙ₋₁, qₙ, xₙ₋₂, xₙ₋₁, xₙ)
+    baker_dx[j] = (qₙ - qₙ₋₁) / (xₙ - xₙ₋₁)
+    u = pde_sol.u[j][end-1]
+    continuum_dx[j] = 2u^2 * (1 - u * s)
+end
+
+fig = Figure(fontsize=43, resolution=(1580, 950))
+ax = Axis(fig[1, 1], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x,t)&quot;,
+    width=600, height=300,
+    xticks=(0:6, [L&quot;%$s&quot; for s in 0:6]),
+    yticks=(5:0.2:5.8, [L&quot;%$s&quot; for s in 5:0.2:5.8]),
+    title=L&quot;(a):$ $ Complete view&quot;,
+    titlealign=:left)
+lines!(ax, sol.u[t_idx], new_densities, linewidth=3, color=:red, label=L&quot;$ $New&quot;)
+lines!(ax, sol.u[t_idx], baker_densities, linewidth=3, color=:blue, label=L&quot;$ $Baker&quot;)
+lines!(ax, pde_x, pde_q, linewidth=3, color=:black, label=L&quot;$ $Continuum limit&quot;)
+ax = Axis(fig[1, 2], xlabel=L&quot;x&quot;, ylabel=L&quot;q(x,t)&quot;,
+    width=600, height=300,
+    title=L&quot;(b):$ $ Zoomed in view&quot;,
+    xticks=(5:0.1:5.3, [L&quot;%$s&quot; for s in 5:0.1:5.3]),
+    yticks=(5:0.05:5.1, [L&quot;%$s&quot; for s in 5:0.05:5.1]),
+    titlealign=:left)
+lines!(ax, sol.u[t_idx], new_densities, linewidth=3, color=:red, label=L&quot;$ $New&quot;)
+lines!(ax, sol.u[t_idx], baker_densities, linewidth=3, color=:blue, label=L&quot;$ $Baker&quot;)
+lines!(ax, pde_x, pde_q, linewidth=3, color=:black, label=L&quot;$ $Continuum limit&quot;)
+xlims!(ax, 5, 5.3)
+ylims!(ax, 5, 5.1)
+ax = Axis(fig[2, 1:2],
+    xlabel=L&quot;t&quot;, ylabel=L&quot;\partial q/\partial x&quot;,
+    title=L&quot;(c):$ $ Derivative comparisons&quot;,
+    titlealign=:left,
+    xticks=(0:2:10, [L&quot;%$s&quot; for s in 0:2:10]),
+    yticks=(-1.5:0.5:0, [L&quot;%$s&quot; for s in -1.5:0.5:0]),
+    width=1350,
+    height=300)
+lines!(ax, sol.t[2:end], new_dx[2:end], linewidth=3, color=:red, label=L&quot;$ $New&quot;)
+lines!(ax, sol.t[2:end], baker_dx[2:end], linewidth=3, color=:blue, label=L&quot;$ $Baker&quot;)
+lines!(ax, sol.t[2:end], continuum_dx[2:end], linewidth=3, color=:black, label=L&quot;$ $Continuum limit&quot;)
+xlims!(ax, 0, 10)
+ylims!(ax, -1.5, 0.2)
+axislegend(ax, position=:rb)
+fig</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../case_studies/cs4b/">« Inaccurate continuum limit</a><a class="docs-footer-nextpage" href="../piecewise_prof/">A Piecewise Proliferation Law »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Tuesday 22 August 2023 00:39">Tuesday 22 August 2023</span>. Using Julia version 1.9.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
