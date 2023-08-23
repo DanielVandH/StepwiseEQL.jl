@@ -112,7 +112,7 @@ end
 arrows!(ax1, [10.0], [7.0], [3.0], [-2.0], color=:black, linewidth=12, arrowsize=50)
 text!(ax1, [12.2], [5.7], text=L&quot;t&quot;, color=:black, fontsize=47)
 ax2 = Axis(fig[1, 2], xlabel=L&quot;t&quot;, ylabel=L&quot;L(t)&quot;, width=950, height=300,
-    title=L&quot;(b):$ $ Leading edge&quot;, titlealign=:left,
+    title=L&quot;(b):$ $ Leading edge comparison&quot;, titlealign=:left,
     xticks=(0:25:100, [L&quot;%$s&quot; for s in 0:25:100]), yticks=(0:10:40, [L&quot;%$s&quot; for s in 0:10:40]))
 lines!(ax2, sol.t, cell_L, color=:black, linewidth=8, label=L&quot;$ $Discrete&quot;)
 lines!(ax2, pde_sol.t, pde_L, color=:red, linestyle=:dash, linewidth=8, label=L&quot;$ $Learned&quot;)
@@ -177,7 +177,7 @@ eql_sol = stepwise_selection(sol;
     text!(ax_pde, [12.2], [5.7], text=L&quot;t&quot;, color=:black, fontsize=47)
 
     ax_leading_edge = Axis(top_grid[1, 2], xlabel=L&quot;t&quot;, ylabel=L&quot;L(t)&quot;, width=950, height=300,
-        title=L&quot;(b):$ $ Leading edge&quot;, titlealign=:left,
+        title=L&quot;(b):$ $ Leading edge comparison&quot;, titlealign=:left,
         xticks=(0:25:100, [L&quot;%$s&quot; for s in 0:25:100]), yticks=(0:10:40, [L&quot;%$s&quot; for s in 0:10:40]))
     lines!(ax_leading_edge, pde_sol.t, pde_L, color=:red, linestyle=:dash, linewidth=5, label=L&quot;$ $Learned&quot;)
     lines!(ax_leading_edge, sol.t, cell_L, color=:black, linewidth=3, label=L&quot;$ $Discrete&quot;)
@@ -334,7 +334,7 @@ end
 arrows!(ax1, [10.0], [7.0], [3.0], [-2.0], color=:black, linewidth=12, arrowsize=50)
 text!(ax1, [12.2], [5.7], text=L&quot;t&quot;, color=:black, fontsize=47)
 ax2 = Axis(fig[1, 2], xlabel=L&quot;t&quot;, ylabel=L&quot;L(t)&quot;, width=950, height=300,
-    title=L&quot;(b):$ $ Leading edge&quot;, titlealign=:left,
+    title=L&quot;(b):$ $ Leading edge comparison&quot;, titlealign=:left,
     xticks=(0:25:100, [L&quot;%$s&quot; for s in 0:25:100]), yticks=(0:10:40, [L&quot;%$s&quot; for s in 0:10:40]))
 lines!(ax2, sol.t, cell_L, color=:black, linewidth=8, label=L&quot;$ $Discrete&quot;)
 lines!(ax2, pde_sol.t, pde_L, color=:red, linestyle=:dash, linewidth=8, label=L&quot;$ $Learned&quot;)
@@ -389,7 +389,7 @@ function plot_results(eql_sol, sol, k, s, η, diffusion_basis, rhs_basis, moving
     text!(ax_pde, [12.2], [5.7], text=L&quot;t&quot;, color=:black, fontsize=47)
 
     ax_leading_edge = Axis(top_grid[1, 2], xlabel=L&quot;t&quot;, ylabel=L&quot;L(t)&quot;, width=950, height=300,
-        title=L&quot;(b):$ $ Leading edge&quot;, titlealign=:left,
+        title=L&quot;(b):$ $ Leading edge comparison&quot;, titlealign=:left,
         xticks=(0:25:100, [L&quot;%$s&quot; for s in 0:25:100]), yticks=(0:10:40, [L&quot;%$s&quot; for s in 0:10:40]))
     lines!(ax_leading_edge, pde_sol.t, pde_L, color=:red, linestyle=:dash, linewidth=5, label=L&quot;$ $Learned&quot;)
     lines!(ax_leading_edge, sol.t, cell_L, color=:black, linewidth=3, label=L&quot;$ $Discrete&quot;)
@@ -458,4 +458,4 @@ function plot_results(eql_sol, sol, k, s, η, diffusion_basis, rhs_basis, moving
     fig
 end
 fig = plot_results(eql_sol, sol, k, s, η, diffusion_basis, rhs_basis, moving_boundary_basis)
-fig</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../piecewise_prof/">« A Piecewise Proliferation Law</a><a class="docs-footer-nextpage" href="../parameter_sensitivity/">Parameter Sensitivity Study »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Wednesday 23 August 2023 02:28">Wednesday 23 August 2023</span>. Using Julia version 1.9.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+fig</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../piecewise_prof/">« A Piecewise Proliferation Law</a><a class="docs-footer-nextpage" href="../parameter_sensitivity/">Parameter Sensitivity Study »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Wednesday 23 August 2023 03:07">Wednesday 23 August 2023</span>. Using Julia version 1.9.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
