@@ -1,4 +1,4 @@
-"""
+@doc raw"""
     stepwise_selection(cell_sol; kwargs...)
 
 Perform stepwise selection on the given cell solution `cell_sol`, given as a 
@@ -144,10 +144,14 @@ initially active terms, with `true` for active and `false` for inactive. The ind
 the flattened form of the coefficients, with the order of coefficients being `diffusion`, `reaction`, 
 `rhs`, and then `moving_boundary`. For example, if the basis functions are
 
-    D(q) = θ₁ᵈϕ₁ᵈ + θ₂ᵈϕ₂ᵈ                      (diffusion)
-    R(q) = θ₁ʳϕ₁ʳ + θ₂ʳϕ₂ʳ + θ₃ʳϕ₃ʳ             (reaction)
-    H(q) = θ₁ʰϕ₁ʰ + θ₂ʰϕ₂ʰ + θ₃ʰϕ₃ʰ + θ₄ʰϕ₄ʰ    (rhs)
-    E(q) = θ₁ᵉϕ₁ᵉ + θ₂ᵉϕ₂ᵉ                      (moving boundary)
+```math
+\begin{align*}
+D(q) &= \theta_1^d\varphi_1^d + \theta_2^d\varphi_2^d & (\text{diffusion}), \\
+R(q) &= \theta_1^r\varphi_1^r + \theta_2^r\varphi_2^r + \theta_3^r\varphi_3^r & (\text{reaction}), \\
+H(q) &= \theta_1^h\varphi_1^h + \theta_2^h\varphi_2^h + \theta_3^h\varphi_3^h + \theta_4^h\varphi_4^h & (\text{rhs}), \\
+E(q) &= \theta_1^e\varphi_1^e + \theta_2^e\varphi_2^e & (\text{moving boundary}),
+\end{align*}
+```
 
 and you want to start with `θ₁ᵈ`, `θ₁ʳ`, `θ₂ʳ`, `θ₂ʰ`, and `θ₂ᵉ` active, 
 then you should provide 
