@@ -2,7 +2,7 @@
 
 [![Documentation](https://img.shields.io/badge/docs---.svg)](https://DanielVandH.github.io/StepwiseEQL.jl/)
 
-This repository includes the code for our stepwise equation learning framework, as developed in our paper _Pushing coarse-grained models beyond the continuum limit using equation learning_ (VandenHeuvel et al., 2023).
+This repository includes the code for our stepwise equation learning framework, as developed in our paper _Pushing coarse-grained models beyond the continuum limit using equation learning_ (VandenHeuvel et al., 2023), available at https://arxiv.org/abs/2308.11086.
 
 Please see the [documentation](https://DanielVandH.github.io/StepwiseEQL.jl/) for more information, where we list information about:
 
