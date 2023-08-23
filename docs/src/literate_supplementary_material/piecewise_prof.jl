@@ -68,7 +68,7 @@ ax1 = Axis(fig[1, 1], xlabel=L"x", ylabel=L"q(x, t)",
     xticks=(0:5:10, [L"%$s" for s in 0:5:10]),
     yticks=(4:8, [L"%$s" for s in 4:8]))
 ax2 = Axis(fig[1, 2], xlabel=L"t", ylabel=L"N(t)",
-    title=L"(b):$ $ Cell number", titlealign=:left,
+    title=L"(b):$ $ Cell number comparison", titlealign=:left,
     width=1200, height=400,
     xticks=(0:100:500, [L"%$s" for s in 0:100:500]),
     yticks=(40:10:80, [L"%$s" for s in 40:10:80]))
@@ -133,12 +133,12 @@ ax1 = Axis(fig[1, 1:2], xlabel=L"x", ylabel=L"q(x, t)",
     xticks=(0:5:10, [L"%$s" for s in 0:5:10]),
     yticks=(4:8, [L"%$s" for s in 4:8]))
 ax2 = Axis(fig[2, 1], xlabel=L"t", ylabel=L"N(t)",
-    title=L"(b):$ $ Cell number", titlealign=:left,
+    title=L"(b):$ $ Cell number comparison", titlealign=:left,
     width=1200, height=400,
     xticks=(0:100:500, [L"%$s" for s in 0:100:500]),
     yticks=(40:10:80, [L"%$s" for s in 40:10:80]))
 ax3 = Axis(fig[2, 2], xlabel=L"q", ylabel=L"R(q)",
-    title=L"(c):$ $ Source", titlealign=:left,
+    title=L"(c): $R(q)$ comparison", titlealign=:left,
     width=1200, height=400,
     xticks=(4:8, [L"%$s" for s in 4:8]),
     yticks=(0:0.02:0.06, [L"%$s" for s in 0:0.02:0.06]))

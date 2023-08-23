@@ -164,7 +164,7 @@ end
 arrows!(ax1, [10.0], [7.0], [3.0], [-2.0], color=:black, linewidth=12, arrowsize=50)
 text!(ax1, [12.2], [5.7], text=L"t", color=:black, fontsize=47)
 ax2 = Axis(fig[1, 2], xlabel=L"t", ylabel=L"L(t)", width=950, height=300,
-    title=L"(b):$ $ Leading edge", titlealign=:left,
+    title=L"(b):$ $ Leading edge comparison", titlealign=:left,
     xticks=(0:25:100, [L"%$s" for s in 0:25:100]), yticks=(0:10:40, [L"%$s" for s in 0:10:40]))
 lines!(ax2, sol.t, cell_L, color=:black, linewidth=8, label=L"$ $Discrete")
 lines!(ax2, pde_sol.t, pde_L, color=:red, linestyle=:dash, linewidth=8, label=L"$ $Learned")
@@ -247,7 +247,7 @@ function plot_results(eql_sol, sol, k, s, η, diffusion_basis, rhs_basis, moving
     text!(ax_pde, [12.2], [5.7], text=L"t", color=:black, fontsize=47)
 
     ax_leading_edge = Axis(top_grid[1, 2], xlabel=L"t", ylabel=L"L(t)", width=950, height=300,
-        title=L"(b):$ $ Leading edge", titlealign=:left,
+        title=L"(b):$ $ Leading edge comparison", titlealign=:left,
         xticks=(0:25:100, [L"%$s" for s in 0:25:100]), yticks=(0:10:40, [L"%$s" for s in 0:10:40]))
     lines!(ax_leading_edge, pde_sol.t, pde_L, color=:red, linestyle=:dash, linewidth=5, label=L"$ $Learned")
     lines!(ax_leading_edge, sol.t, cell_L, color=:black, linewidth=3, label=L"$ $Discrete")
@@ -415,7 +415,7 @@ end
 arrows!(ax1, [10.0], [7.0], [3.0], [-2.0], color=:black, linewidth=12, arrowsize=50)
 text!(ax1, [12.2], [5.7], text=L"t", color=:black, fontsize=47)
 ax2 = Axis(fig[1, 2], xlabel=L"t", ylabel=L"L(t)", width=950, height=300,
-    title=L"(b):$ $ Leading edge", titlealign=:left,
+    title=L"(b):$ $ Leading edge comparison", titlealign=:left,
     xticks=(0:25:100, [L"%$s" for s in 0:25:100]), yticks=(0:10:40, [L"%$s" for s in 0:10:40]))
 lines!(ax2, sol.t, cell_L, color=:black, linewidth=8, label=L"$ $Discrete")
 lines!(ax2, pde_sol.t, pde_L, color=:red, linestyle=:dash, linewidth=8, label=L"$ $Learned")
@@ -470,7 +470,7 @@ function plot_results(eql_sol, sol, k, s, η, diffusion_basis, rhs_basis, moving
     text!(ax_pde, [12.2], [5.7], text=L"t", color=:black, fontsize=47)
 
     ax_leading_edge = Axis(top_grid[1, 2], xlabel=L"t", ylabel=L"L(t)", width=950, height=300,
-        title=L"(b):$ $ Leading edge", titlealign=:left,
+        title=L"(b):$ $ Leading edge comparison", titlealign=:left,
         xticks=(0:25:100, [L"%$s" for s in 0:25:100]), yticks=(0:10:40, [L"%$s" for s in 0:10:40]))
     lines!(ax_leading_edge, pde_sol.t, pde_L, color=:red, linestyle=:dash, linewidth=5, label=L"$ $Learned")
     lines!(ax_leading_edge, sol.t, cell_L, color=:black, linewidth=3, label=L"$ $Discrete")
