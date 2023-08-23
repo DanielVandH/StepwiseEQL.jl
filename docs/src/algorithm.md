@@ -12,7 +12,7 @@ In this section, we describe the functions used for actually running the algorit
 
 - [EpithelialDynamics1D.jl](https://github.com/DanielVandH/EpithelialDynamics1D.jl): This is the package that actually implements the discrete model of the epithelial dynamics. Please see its [documentation](https://danielvandh.github.io/EpithelialDynamics1D.jl/stable/) for detailed information and examples.
 - [FiniteVolumeMethod1D.jl](https://github.com/DanielVandH/FiniteVolumeMethod1D.jl): This is the package that solves the PDEs on a fixed boundary. Please see its [documentation](https://danielvandh.github.io/FiniteVolumeMethod1D.jl/stable/) for detailed information and examples.
-- [MovingBoundaryProblems1D.jl](https://github.com/DanielVandH/FiniteVolumeMethod1D.jl): This is the package that solves the PDEs on a moving boundary. Please see its [documentation](https://danielvandh.github.io/MovingBoundaryProblems1D.jl/stable/) for detailed information and examples.
+- [MovingBoundaryProblems1D.jl](https://github.com/DanielVandH/MovingBoundaryProblems1D.jl): This is the package that solves the PDEs on a moving boundary. Please see its [documentation](https://danielvandh.github.io/MovingBoundaryProblems1D.jl/stable/) for detailed information and examples.
 
 ## Basis Functions 
 The functions below are used for defining basis functions:
