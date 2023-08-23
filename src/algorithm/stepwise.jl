@@ -78,7 +78,7 @@ is `nothing`.
 - `(diffusion/reaction/rhs/moving_boundary)_theta`
 
 This keyword argument indicates whether the coefficients `θ` used for evaluating the basis sets 
-are fixed or are to be learned, with a defualt of `nothing`. If `nothing`, then they will be learned. Otherwise, they should be 
+are fixed or are to be learned, with a default of `nothing`. If `nothing`, then they will be learned. Otherwise, they should be 
 a vector of numbers indicating the coefficients `θ` to be used for the respective mechanism. For example,
 `diffusion_theta = [1.0, 0.5]` means that the diffusion function is evaluated with coefficients 
 `θ₁ᵈ = 1` and `θ₂ᵈ = 0.5`.
@@ -127,7 +127,7 @@ not like to penalise complexity.
 - `loss_function`
 
 The loss function use. Defaults to `default_loss(; regression, density, complexity)`. The loss 
-function should take the same form as described in `?default_loss`.
+function should take the same form as described in [`default_loss`](@ref).
 - `bidirectional`
 
 Whether to allow for steps in both directions, meaning terms can be either added or deleted at each step. 
