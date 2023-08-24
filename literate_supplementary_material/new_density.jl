@@ -80,9 +80,10 @@ ax = Axis(fig[1, 1], xlabel=L"x", ylabel=L"q(x,t)",
 lines!(ax, sol.u[t_idx], new_densities, linewidth=3, color=:red, label=L"$ $New")
 lines!(ax, sol.u[t_idx], baker_densities, linewidth=3, color=:blue, label=L"$ $Baker")
 lines!(ax, pde_x, pde_q, linewidth=3, color=:black, label=L"$ $Continuum limit")
+lines!(ax, [(5.0, 5.0), (5.35, 5.0), (5.35, 5.1), (5.0, 5.1), (5.0, 5.0)], color = :magenta, linewidth=4)
 ax = Axis(fig[1, 2], xlabel=L"x", ylabel=L"q(x,t)",
     width=600, height=300,
-    title=L"(b):$ $ Zoomed in view",
+    title=L"(b):$ $ Focused view",
     xticks=(5:0.1:5.3, [L"%$s" for s in 5:0.1:5.3]),
     yticks=(5:0.05:5.1, [L"%$s" for s in 5:0.05:5.1]),
     titlealign=:left)
