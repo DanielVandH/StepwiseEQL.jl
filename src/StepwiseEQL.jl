@@ -22,6 +22,7 @@ using Setfield
 using Bijections
 using LaTeXStrings
 using Memoize
+using ThreadSafeDicts
 
 export BasisSet, PolynomialBasis, stepwise_selection, AveragedODESolution, default_loss, latex_table
 

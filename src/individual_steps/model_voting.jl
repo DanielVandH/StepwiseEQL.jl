@@ -25,7 +25,7 @@ end
     leading_edge_error=true,
     num_constraint_checks=100,
     conserve_mass=false)
-    results = Dict{Int,Float64}()
+    results = ThreadSafeDict{Int,Float64}()
     @sync for term in eachindex(indicators)
         Threads.@spawn _add1!(results, term, model, deepcopy(indicators), loss_function, subsets, skip, use_relative_err, leading_edge_error, extrapolate_pde, num_constraint_checks, conserve_mass)
     end
@@ -42,7 +42,7 @@ end
     leading_edge_error=true,
     num_constraint_checks=100,
     conserve_mass=false)
-    results = Dict{Int,Float64}()
+    results = ThreadSafeDict{Int,Float64}()
     @sync for term in eachindex(indicators)
         Threads.@spawn _drop1!(results, term, model, deepcopy(indicators), loss_function, subsets, skip, use_relative_err, leading_edge_error, extrapolate_pde, num_constraint_checks, conserve_mass)
     end
@@ -50,7 +50,7 @@ end
 end
 
 function vote(model::EQLModel, subsets, indicators, loss_function=default_loss(; regression=false); skip=(), bidirectional=true, use_relative_err=true, leading_edge_error=true, extrapolate_pde=false, num_constraint_checks=100, conserve_mass=false)
-    possible_models = Dict{Int,Float64}()
+    possible_models = ThreadSafeDict{Int,Float64}()
     if bidirectional
         begin
             backward_possible_models = Threads.@spawn drop1(model, indicators, loss_function; subsets, skip, use_relative_err, leading_edge_error, extrapolate_pde, num_constraint_checks, conserve_mass)
@@ -63,6 +63,7 @@ function vote(model::EQLModel, subsets, indicators, loss_function=default_loss(;
         backward_possible_models = drop1(model, indicators, loss_function; subsets, skip, use_relative_err, leading_edge_error, extrapolate_pde, num_constraint_checks, conserve_mass)
         merge!(possible_models, backward_possible_models)
     end
+    possible_models = Dict(possible_models)
     if length(possible_models) > 0
         minimum_score, best_model = findmin(possible_models)
     else
